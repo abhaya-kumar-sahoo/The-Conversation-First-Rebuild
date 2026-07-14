@@ -13,6 +13,10 @@ const EditableDocument = lazy(() => import('@/features/documents/EditableDocumen
 const RecordingsArtifact = lazy(() => import('@/features/recordings/RecordingsArtifact'));
 const ConfirmationDialog = lazy(() => import('@/features/artifacts/ConfirmationDialog'));
 const EmptyState = lazy(() => import('@/features/artifacts/EmptyState'));
+const CampaignBuilder = lazy(() => import('@/features/campaigns/CampaignBuilder'));
+const ApprovalSheet = lazy(() => import('@/features/approvals/ApprovalSheet'));
+const TimelineArtifact = lazy(() => import('@/features/timeline/TimelineArtifact'));
+const SearchResults = lazy(() => import('@/features/search/SearchResults'));
 
 function SkeletonLoader() {
   return (
@@ -53,6 +57,14 @@ export function ArtifactRenderer({ artifact }: ArtifactRendererProps) {
             return <EditableDocument artifact={artifact} />;
           case 'recordings':
             return <RecordingsArtifact artifact={artifact} />;
+          case 'campaign-builder':
+            return <CampaignBuilder artifact={artifact} />;
+          case 'approval-sheet':
+            return <ApprovalSheet />
+          case 'timeline':
+            return <TimelineArtifact />
+          case 'search-results':
+            return <SearchResults artifact={artifact} />
           default:
             return (
               <div className="p-8 text-center text-[#52525b]">

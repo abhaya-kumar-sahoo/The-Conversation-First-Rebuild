@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
 import type { ChatMessage, MessageRole, ArtifactType } from '@/types';
-import { parseIntent } from '@/services/aiEngine';
+import { getAIProvider } from '@/providers';
 import { nanoid } from '@reduxjs/toolkit';
 
 interface ConversationState {
@@ -47,8 +47,9 @@ export const sendMessage = createAsyncThunk(
       timestamp: new Date().toISOString(),
     }));
 
-    // Parse intent
-    const intent = parseIntent(userInput);
+    // Parse intent using the active provider
+    const provider = getAIProvider();
+    const intent = await provider.parseIntent(userInput);
 
     // Add streaming assistant message
     const assistantMessageId = nanoid();

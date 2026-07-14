@@ -147,6 +147,10 @@ export type ArtifactType =
   | 'editable-document'
   | 'recordings'
   | 'confirmation-dialog'
+  | 'campaign-builder'
+  | 'approval-sheet'
+  | 'timeline'
+  | 'search-results'
   | 'empty-state';
 
 export interface Artifact {
@@ -210,6 +214,9 @@ export type IntentType =
   | 'search'
   | 'show-analytics'
   | 'show-queues'
+  | 'create-campaign'
+  | 'show-approvals'
+  | 'show-timeline'
   | 'help'
   | 'unknown';
 

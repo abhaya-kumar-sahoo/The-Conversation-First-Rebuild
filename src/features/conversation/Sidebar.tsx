@@ -38,7 +38,7 @@ const CONVERSATION_HISTORY = [
 ];
 
 export function Sidebar() {
-  const dispatch = useAppDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const { sidebarCollapsed } = useAppSelector(s => s.ui);
   const [activeSection, setActiveSection] = useState<string>('history');
 
@@ -48,7 +48,7 @@ export function Sidebar() {
   };
 
   const handleQuickAction = (prompt: string) => {
-    dispatch(sendMessage(prompt) as Parameters<typeof dispatch>[0]);
+    dispatch(sendMessage(prompt));
   };
 
   const collapsed = sidebarCollapsed;

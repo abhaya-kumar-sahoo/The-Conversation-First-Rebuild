@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Mic, Paperclip, Sparkles, CornerDownLeft } from 'lucide-react';
+import { Send, Mic, Paperclip, Sparkles, CornerDownLeft, Command } from 'lucide-react';
 
 interface PromptBoxProps {
   onSend: (text: string) => void;
@@ -19,11 +19,26 @@ const SAMPLE_PROMPTS = [
   'Show analytics',
 ];
 
+const SLASH_COMMANDS = [
+  { id: 'queue', label: '/queue', desc: 'Create a new queue', query: 'Create a queue' },
+  { id: 'campaign', label: '/campaign', desc: 'Build an outbound campaign', query: 'Create an outbound campaign' },
+  { id: 'ivr', label: '/ivr', desc: 'Build an IVR flow', query: 'Create IVR flow' },
+  { id: 'search', label: '/search', desc: 'Search directory', query: 'Search ' },
+  { id: 'approvals', label: '/approvals', desc: 'Show pending approvals', query: 'Show pending approvals' },
+  { id: 'timeline', label: '/timeline', desc: 'View activity timeline', query: 'Show timeline' },
+];
+
 export function PromptBox({ onSend, isStreaming }: PromptBoxProps) {
   const [value, setValue] = useState('');
   const [placeholder, setPlaceholder] = useState('');
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [isPlaceholderTyping, setIsPlaceholderTyping] = useState(true);
+  
+  // Slash commands state
+  const [showSlashMenu, setShowSlashMenu] = useState(false);
+  const [slashFilter, setSlashFilter] = useState('');
+  const [slashIndex, setSlashIndex] = useState(0);
+
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Animated placeholder typewriter
@@ -65,6 +80,32 @@ export function PromptBox({ onSend, isStreaming }: PromptBoxProps) {
   }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (showSlashMenu) {
+      const filtered = SLASH_COMMANDS.filter(c => c.label.toLowerCase().includes('/' + slashFilter.toLowerCase()));
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setSlashIndex((i) => (i + 1) % filtered.length);
+        return;
+      }
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setSlashIndex((i) => (i - 1 + filtered.length) % filtered.length);
+        return;
+      }
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        if (filtered[slashIndex]) {
+          applySlashCommand(filtered[slashIndex]);
+        }
+        return;
+      }
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        setShowSlashMenu(false);
+        return;
+      }
+    }
+
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
       e.preventDefault();
       handleSubmit();
@@ -72,6 +113,14 @@ export function PromptBox({ onSend, isStreaming }: PromptBoxProps) {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSubmit();
+    }
+  };
+
+  const applySlashCommand = (cmd: typeof SLASH_COMMANDS[0]) => {
+    setValue(cmd.query);
+    setShowSlashMenu(false);
+    if (textareaRef.current) {
+      textareaRef.current.focus();
     }
   };
 
@@ -86,11 +135,24 @@ export function PromptBox({ onSend, isStreaming }: PromptBoxProps) {
   }, [value, isStreaming, onSend]);
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(e.target.value);
+    const val = e.target.value;
+    setValue(val);
+    
+    // Check for slash menu
+    if (val.startsWith('/')) {
+      setShowSlashMenu(true);
+      setSlashFilter(val.slice(1));
+      setSlashIndex(0);
+    } else {
+      setShowSlashMenu(false);
+    }
+
     // Auto-grow
     e.target.style.height = 'auto';
     e.target.style.height = Math.min(e.target.scrollHeight, 160) + 'px';
   };
+
+  const filteredCommands = SLASH_COMMANDS.filter(c => c.label.toLowerCase().includes('/' + slashFilter.toLowerCase()));
 
   return (
     <div className="px-6 pb-6 pt-2">
@@ -99,6 +161,43 @@ export function PromptBox({ onSend, isStreaming }: PromptBoxProps) {
         whileFocusWithin={{ borderColor: 'rgba(124, 58, 237, 0.6)', boxShadow: '0 8px 32px rgba(124, 58, 237, 0.15), 0 0 0 1px rgba(124, 58, 237, 0.6)' }}
         transition={{ duration: 0.2 }}
       >
+        <AnimatePresence>
+          {showSlashMenu && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              className="absolute bottom-full left-0 w-64 mb-2 bg-[#18181b] border border-[#27272a] rounded-xl shadow-xl overflow-hidden z-50"
+            >
+              <div className="px-3 py-2 border-b border-[#27272a] bg-[#0f0f12]">
+                <span className="text-[10px] font-semibold text-[#71717a] uppercase tracking-wider">Slash Commands</span>
+              </div>
+              <div className="max-h-60 overflow-y-auto p-1">
+                {filteredCommands.length > 0 ? (
+                  filteredCommands.map((cmd, idx) => (
+                    <button
+                      key={cmd.id}
+                      onClick={() => applySlashCommand(cmd)}
+                      onMouseEnter={() => setSlashIndex(idx)}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-colors ${
+                        idx === slashIndex ? 'bg-violet-600/20 text-white' : 'text-[#a1a1aa] hover:bg-[#27272a]'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <Command size={12} className={idx === slashIndex ? 'text-violet-400' : 'text-[#52525b]'} />
+                        <span className="text-[13px] font-medium">{cmd.label}</span>
+                      </div>
+                      <span className="text-[11px] text-[#71717a]">{cmd.desc}</span>
+                    </button>
+                  ))
+                ) : (
+                  <div className="px-3 py-4 text-center text-xs text-[#71717a]">No commands found</div>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Textarea */}
         <textarea
           ref={textareaRef}

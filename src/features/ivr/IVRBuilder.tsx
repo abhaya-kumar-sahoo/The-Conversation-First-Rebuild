@@ -12,7 +12,6 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { motion } from 'framer-motion';
-import { Plus } from 'lucide-react';
 import type { Artifact } from '@/types';
 
 // ============================================================

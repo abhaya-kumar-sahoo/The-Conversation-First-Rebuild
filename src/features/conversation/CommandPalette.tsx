@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/useStore';
 import { setCommandPaletteOpen } from '@/store/slices/uiSlice';
 import { sendMessage } from '@/store/slices/conversationSlice';
 import { createArtifact } from '@/store/slices/artifactSlice';
-import { parseIntent } from '@/services/aiEngine';
+import { getAIProvider } from '@/providers';
 import { nanoid } from '@reduxjs/toolkit';
 import type { AppDispatch } from '@/store';
 
@@ -41,7 +41,7 @@ function getArtifactTitle(intentPayload: Record<string, unknown>, type: string):
 }
 
 export function CommandPalette() {
-  const dispatch = useAppDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const { commandPaletteOpen } = useAppSelector(s => s.ui);
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState(0);
@@ -85,7 +85,8 @@ export function CommandPalette() {
 
   const runCommand = async (prompt: string) => {
     dispatch(setCommandPaletteOpen(false));
-    const intent = parseIntent(prompt);
+    const provider = getAIProvider();
+    const intent = await provider.parseIntent(prompt);
     await dispatch(sendMessage(prompt));
     if (intent.artifactType) {
       dispatch(createArtifact({

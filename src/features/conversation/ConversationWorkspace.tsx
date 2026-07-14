@@ -1,18 +1,17 @@
 import { useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { useAppDispatch, useAppSelector } from '@/hooks/useStore';
 import { sendMessage } from '@/store/slices/conversationSlice';
 import { createArtifact } from '@/store/slices/artifactSlice';
 import { addToast } from '@/store/slices/uiSlice';
-import { parseIntent } from '@/services/aiEngine';
+import { getAIProvider } from '@/providers';
 import { MessageBubble } from './MessageBubble';
 import { PromptBox } from './PromptBox';
-import type { AppDispatch } from '@/store';
 import { nanoid } from '@reduxjs/toolkit';
 
 function getArtifactTitle(intentPayload: Record<string, unknown>, type: string): string {
   const titles: Record<string, string> = {
-    'queue-editor': `${(intentPayload.name as string) || (intentPayload.queue as {name: string})?.name || 'Queue'} Editor`,
+    'queue-editor': `${(intentPayload.name as string) || (intentPayload.queue as { name: string })?.name || 'Queue'} Editor`,
     'queue-list': 'Call Queues',
     'ivr-builder': `${(intentPayload.name as string) || 'IVR'} Flow Builder`,
     'contact-table': 'Contact Directory',
@@ -29,7 +28,7 @@ function getArtifactTitle(intentPayload: Record<string, unknown>, type: string):
 }
 
 export function ConversationWorkspace() {
-  const dispatch = useAppDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const { messages, isStreaming } = useAppSelector(s => s.conversation);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -42,7 +41,8 @@ export function ConversationWorkspace() {
   const handleSend = useCallback(async (text: string) => {
     if (!text.trim() || isStreaming) return;
 
-    const intent = parseIntent(text);
+    const provider = getAIProvider();
+    const intent = await provider.parseIntent(text);
 
     // Dispatch the streaming message
     const result = await dispatch(sendMessage(text));
