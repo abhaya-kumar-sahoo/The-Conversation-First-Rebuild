@@ -95,11 +95,6 @@ const INTENT_PATTERNS: IntentPattern[] = [
     artifactType: 'analytics',
   },
   {
-    type: 'generate-document',
-    patterns: [/\bwrite\b/i, /\bdocument/i, /\bsop\b/i, /\bprocedure/i, /\bpolicy\b/i, /\bguide\b/i, /\bplaybook\b/i, /\bonboarding/i, /\bscript\b/i, /\btemplate\b/i],
-    artifactType: 'editable-document',
-  },
-  {
     type: 'search',
     patterns: [/\bsearch\b/i, /\bfind\b/i, /\blook.*for\b/i, /\bwhere\b.*\bis\b/i],
     artifactType: 'search-results',
@@ -243,8 +238,7 @@ export class MockProvider implements IAIProvider {
         return { name: extractNameGenerics(input, 'Main Menu'), isNew: type === 'create-ivr' };
       case 'create-campaign':
         return { name: extractNameGenerics(input, 'Summer Outreach'), isNew: true };
-      case 'generate-document':
-        return { title: extractNameGenerics(input, 'Document') };
+
       case 'search':
         return { query: extractSearchTerm(input) };
       default:
@@ -308,8 +302,7 @@ export class MockProvider implements IAIProvider {
         return `I've generated your **Performance Report**.`;
       case 'show-analytics':
         return `Here's your **Call Center Analytics** dashboard.`;
-      case 'generate-document':
-        return `I've created the **${payload.title}** document in the editor.`;
+
       case 'help':
         return `Welcome to **CallCenter AI Workspace**! You can ask me to create queues, assign agents, build IVRs, or view dashboards.`;
       case 'unknown':

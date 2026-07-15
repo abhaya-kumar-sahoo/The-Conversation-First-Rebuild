@@ -34,14 +34,11 @@ export default function AnalyticsArtifact({ artifact: _artifact }: AnalyticsArti
           <Calendar size={14} className="text-[#52525b]" />
           <span className="text-xs text-[#a1a1aa]">Last 14 Days Analytics</span>
         </div>
-        <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#18181b] border border-[#27272a] hover:bg-[#27272a] text-[#a1a1aa] hover:text-white transition-colors text-xs font-medium">
-          <Filter size={13} />
-          Filters
-        </button>
+
       </div>
 
       <div className="flex-1 overflow-y-auto p-5 space-y-6">
-        
+
         {/* Metric Overview */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}

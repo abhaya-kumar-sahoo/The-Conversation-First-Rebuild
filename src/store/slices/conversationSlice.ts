@@ -15,7 +15,6 @@ function getArtifactTitle(intentPayload: Record<string, unknown>, type: string):
     'dashboard': 'Live Dashboard',
     'report': 'Performance Report',
     'analytics': 'Call Analytics',
-    'editable-document': (intentPayload.title as string) || 'Document',
     'recordings': 'Call Recordings',
     'confirmation-dialog': 'Confirm Action',
     'campaign-builder': 'Campaign Builder',

@@ -3,6 +3,7 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 interface UIState {
   sidebarCollapsed: boolean;
   commandPaletteOpen: boolean;
+  artifactPanelExpanded: boolean;
   rightPanelWidth: number;
   leftPanelWidth: number;
   toasts: Array<{
@@ -16,6 +17,7 @@ interface UIState {
 const initialState: UIState = {
   sidebarCollapsed: false,
   commandPaletteOpen: false,
+  artifactPanelExpanded: false,
   rightPanelWidth: 520,
   leftPanelWidth: 260,
   toasts: [],
@@ -33,6 +35,9 @@ const uiSlice = createSlice({
     },
     toggleCommandPalette(state) {
       state.commandPaletteOpen = !state.commandPaletteOpen;
+    },
+    toggleArtifactPanelExpanded(state) {
+      state.artifactPanelExpanded = !state.artifactPanelExpanded;
     },
     setCommandPaletteOpen(state, action: PayloadAction<boolean>) {
       state.commandPaletteOpen = action.payload;
@@ -61,6 +66,7 @@ export const {
   toggleSidebar,
   setSidebarCollapsed,
   toggleCommandPalette,
+  toggleArtifactPanelExpanded,
   setCommandPaletteOpen,
   setRightPanelWidth,
   addToast,

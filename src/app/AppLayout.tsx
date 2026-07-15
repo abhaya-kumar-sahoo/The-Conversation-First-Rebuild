@@ -8,7 +8,7 @@ import { toggleCommandPalette, setRightPanelWidth } from '@/store/slices/uiSlice
 
 export function AppLayout() {
   const dispatch = useAppDispatch();
-  const { sidebarCollapsed, rightPanelWidth } = useAppSelector(s => s.ui);
+  const { sidebarCollapsed, rightPanelWidth, artifactPanelExpanded } = useAppSelector(s => s.ui);
   const { artifacts, activeArtifactId } = useAppSelector(s => s.artifacts);
   const hasArtifacts = artifacts.length > 0;
   const isResizing = useRef(false);
@@ -68,13 +68,15 @@ export function AppLayout() {
       </motion.div>
 
       {/* Center Conversation */}
-      <div className="flex-1 min-w-0 flex flex-col overflow-hidden">
-        <ConversationWorkspace />
-      </div>
+      {(!artifactPanelExpanded || !hasArtifacts) && (
+        <div className="flex-1 min-w-0 flex flex-col overflow-hidden">
+          <ConversationWorkspace />
+        </div>
+      )}
 
       {/* Resize Handle */}
       <AnimatePresence>
-        {hasArtifacts && (
+        {hasArtifacts && !artifactPanelExpanded && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -90,11 +92,11 @@ export function AppLayout() {
         {hasArtifacts && (
           <motion.div
             initial={{ width: 0, opacity: 0 }}
-            animate={{ width: rightPanelWidth, opacity: 1 }}
+            animate={{ width: artifactPanelExpanded ? '100%' : rightPanelWidth, opacity: 1 }}
             exit={{ width: 0, opacity: 0 }}
             transition={{ type: 'spring', stiffness: 300, damping: 35 }}
-            className="flex-shrink-0 border-l border-[#27272a] overflow-hidden"
-            style={{ width: rightPanelWidth }}
+            className={`border-l border-[#27272a] overflow-hidden ${artifactPanelExpanded ? 'flex-1 min-w-0' : 'flex-shrink-0'}`}
+            style={!artifactPanelExpanded ? { width: rightPanelWidth } : undefined}
           >
             <ArtifactPanel />
           </motion.div>

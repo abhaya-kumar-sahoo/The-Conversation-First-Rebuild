@@ -9,7 +9,6 @@ const ManagerTable = lazy(() => import('@/features/contacts/ManagerTable'));
 const DashboardArtifact = lazy(() => import('@/features/dashboard/DashboardArtifact'));
 const ReportArtifact = lazy(() => import('@/features/reports/ReportArtifact'));
 const AnalyticsArtifact = lazy(() => import('@/features/reports/AnalyticsArtifact'));
-const EditableDocument = lazy(() => import('@/features/documents/EditableDocument'));
 const RecordingsArtifact = lazy(() => import('@/features/recordings/RecordingsArtifact'));
 const ConfirmationDialog = lazy(() => import('@/features/artifacts/ConfirmationDialog'));
 const EmptyState = lazy(() => import('@/features/artifacts/EmptyState'));
@@ -53,8 +52,6 @@ export function ArtifactRenderer({ artifact }: ArtifactRendererProps) {
             return <ReportArtifact artifact={artifact} />;
           case 'analytics':
             return <AnalyticsArtifact artifact={artifact} />;
-          case 'editable-document':
-            return <EditableDocument artifact={artifact} />;
           case 'recordings':
             return <RecordingsArtifact artifact={artifact} />;
           case 'campaign-builder':

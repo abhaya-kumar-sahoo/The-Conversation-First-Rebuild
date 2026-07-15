@@ -14,7 +14,6 @@ const COMMANDS = [
   { id: 'analytics', icon: BarChart2, label: 'Show Analytics', category: 'Reports', prompt: 'Show analytics and metrics' },
   { id: 'report', icon: BarChart2, label: 'Weekly Report', category: 'Reports', prompt: 'Generate weekly performance report' },
   { id: 'ivr', icon: Zap, label: 'Create IVR Flow', category: 'IVR', prompt: 'Create IVR for customer support' },
-  { id: 'sop', icon: FileText, label: 'Write Agent SOP', category: 'Documents', prompt: 'Write onboarding SOP for new agents' },
   { id: 'managers', icon: Users, label: 'Show Managers', category: 'View', prompt: 'Show all managers' },
 ];
 

@@ -6,7 +6,7 @@ You are an AI assistant routing intents for a Call Center Admin Panel.
 Given the user's input, map it to exactly ONE of the following IntentTypes:
 'create-queue', 'edit-queue', 'delete-queue', 'assign-agents', 'unassign-agents', 
 'create-ivr', 'edit-ivr', 'show-contacts', 'show-managers', 'show-dashboard', 
-'show-recordings', 'generate-report', 'generate-document', 'search', 
+'show-recordings', 'generate-report', 'search', 
 'show-analytics', 'show-queues', 'create-campaign', 'show-approvals', 
 'show-timeline', 'help', 'unknown'
 
@@ -23,7 +23,7 @@ You must return ONLY a raw JSON object with this exact structure, no markdown fo
 
 ArtifactTypes you can use:
 'queue-editor', 'queue-list', 'ivr-builder', 'contact-table', 'manager-table', 
-'dashboard', 'report', 'analytics', 'editable-document', 'recordings', 
+'dashboard', 'report', 'analytics', 'recordings', 
 'confirmation-dialog', 'campaign-builder', 'approval-sheet', 'timeline', 
 'search-results', 'empty-state'
 `;

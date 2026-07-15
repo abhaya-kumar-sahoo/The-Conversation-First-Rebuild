@@ -71,13 +71,13 @@ export default function QueueList({ artifact: _artifact }: QueueListProps) {
     <div className="flex flex-col h-full">
       {/* Toolbar */}
       <div className="px-5 py-3 border-b border-[#27272a] flex items-center gap-2">
-        <div className="flex-1 flex items-center gap-2 px-3 py-2 rounded-lg bg-[#18181b] border border-[#27272a]">
+        <div className="flex-1 flex items-center gap-2 px-3 py-2 rounded-lg bg-[#18181b] border border-[#27272a] focus-within:border-teal-500/50 focus-within:ring-1 focus-within:ring-teal-500/50 transition-all">
           <Search size={13} className="text-[#52525b]" />
           <input
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Search queues..."
-            className="flex-1 bg-transparent text-sm text-white outline-none placeholder:text-[#52525b]"
+            className="flex-1 bg-transparent text-sm text-white outline-none focus:outline-none focus:ring-0 border-none focus:border-transparent p-0 placeholder:text-[#52525b]"
           />
         </div>
         <div className="flex gap-1">

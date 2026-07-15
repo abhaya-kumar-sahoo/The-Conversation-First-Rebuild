@@ -19,7 +19,6 @@ const QUICK_ACTIONS = [
   { icon: Users, label: 'Agents', prompt: 'Show all agents' },
   { icon: Zap, label: 'Create Queue', prompt: 'Create a new Sales queue with Least Recent strategy' },
   { icon: BarChart2, label: 'Analytics', prompt: 'Show analytics and metrics' },
-  { icon: FileText, label: 'SOP', prompt: 'Write onboarding SOP for new agents' },
 ];
 
 const RECENT_ACTIVITIES = [
