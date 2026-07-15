@@ -4,10 +4,6 @@ import { Search, Zap, LayoutDashboard, Users, Phone, BarChart2, FileText, X } fr
 import { useAppDispatch, useAppSelector } from '@/hooks/useStore';
 import { setCommandPaletteOpen } from '@/store/slices/uiSlice';
 import { sendMessage } from '@/store/slices/conversationSlice';
-import { createArtifact } from '@/store/slices/artifactSlice';
-import { getAIProvider } from '@/providers';
-import { nanoid } from '@reduxjs/toolkit';
-import type { AppDispatch } from '@/store';
 
 const COMMANDS = [
   { id: 'dashboard', icon: LayoutDashboard, label: 'Show Dashboard', category: 'View', prompt: 'Show me today\'s call center dashboard' },
@@ -21,24 +17,6 @@ const COMMANDS = [
   { id: 'sop', icon: FileText, label: 'Write Agent SOP', category: 'Documents', prompt: 'Write onboarding SOP for new agents' },
   { id: 'managers', icon: Users, label: 'Show Managers', category: 'View', prompt: 'Show all managers' },
 ];
-
-function getArtifactTitle(intentPayload: Record<string, unknown>, type: string): string {
-  const titles: Record<string, string> = {
-    'queue-editor': `${(intentPayload.name as string) || 'Queue'} Editor`,
-    'queue-list': 'Call Queues',
-    'ivr-builder': `${(intentPayload.name as string) || 'IVR'} Flow Builder`,
-    'contact-table': 'Contact Directory',
-    'manager-table': 'Management Team',
-    'dashboard': 'Live Dashboard',
-    'report': 'Performance Report',
-    'analytics': 'Call Analytics',
-    'editable-document': (intentPayload.title as string) || 'Document',
-    'recordings': 'Call Recordings',
-    'confirmation-dialog': 'Confirm Action',
-    'empty-state': 'Empty',
-  };
-  return titles[type] || 'Workspace';
-}
 
 export function CommandPalette() {
   const dispatch = useAppDispatch();
@@ -85,17 +63,7 @@ export function CommandPalette() {
 
   const runCommand = async (prompt: string) => {
     dispatch(setCommandPaletteOpen(false));
-    const provider = getAIProvider();
-    const intent = await provider.parseIntent(prompt);
     await dispatch(sendMessage(prompt));
-    if (intent.artifactType) {
-      dispatch(createArtifact({
-        type: intent.artifactType,
-        title: getArtifactTitle(intent.payload, intent.artifactType),
-        payload: intent.payload,
-        conversationId: nanoid(),
-      }));
-    }
   };
 
   return (

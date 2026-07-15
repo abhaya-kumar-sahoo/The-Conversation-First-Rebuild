@@ -2,30 +2,8 @@ import { useEffect, useRef, useCallback } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { useAppDispatch, useAppSelector } from '@/hooks/useStore';
 import { sendMessage } from '@/store/slices/conversationSlice';
-import { createArtifact } from '@/store/slices/artifactSlice';
-import { addToast } from '@/store/slices/uiSlice';
-import { getAIProvider } from '@/providers';
 import { MessageBubble } from './MessageBubble';
 import { PromptBox } from './PromptBox';
-import { nanoid } from '@reduxjs/toolkit';
-
-function getArtifactTitle(intentPayload: Record<string, unknown>, type: string): string {
-  const titles: Record<string, string> = {
-    'queue-editor': `${(intentPayload.name as string) || (intentPayload.queue as { name: string })?.name || 'Queue'} Editor`,
-    'queue-list': 'Call Queues',
-    'ivr-builder': `${(intentPayload.name as string) || 'IVR'} Flow Builder`,
-    'contact-table': 'Contact Directory',
-    'manager-table': 'Management Team',
-    'dashboard': 'Live Dashboard',
-    'report': 'Performance Report',
-    'analytics': 'Call Analytics',
-    'editable-document': (intentPayload.title as string) || 'Document',
-    'recordings': 'Call Recordings',
-    'confirmation-dialog': 'Confirm Action',
-    'empty-state': 'Empty',
-  };
-  return titles[type] || 'Workspace';
-}
 
 export function ConversationWorkspace() {
   const dispatch = useAppDispatch();
@@ -43,29 +21,8 @@ export function ConversationWorkspace() {
   const handleSend = useCallback(async (text: string) => {
     if (!text.trim() || isStreaming) return;
 
-    const provider = getAIProvider();
-    const intent = await provider.parseIntent(text);
-
-    // Dispatch the streaming message
+    // Dispatch the streaming message which now automatically handles artifact creation
     const result = await dispatch(sendMessage(text));
-
-    // After streaming, create the artifact if applicable
-    if (intent.artifactType) {
-      dispatch(createArtifact({
-        type: intent.artifactType,
-        title: getArtifactTitle(intent.payload, intent.artifactType),
-        payload: intent.payload,
-        conversationId: nanoid(),
-      }));
-
-      // Toast
-      dispatch(addToast({
-        id: nanoid(),
-        type: 'success',
-        title: 'Artifact created',
-        description: `${getArtifactTitle(intent.payload, intent.artifactType)} is ready`,
-      }));
-    }
 
     return result;
   }, [dispatch, isStreaming]);

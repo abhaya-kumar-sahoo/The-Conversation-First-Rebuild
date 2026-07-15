@@ -120,8 +120,8 @@ export default function QueueEditor({ artifact }: QueueEditorProps) {
                       type="button"
                       onClick={() => field.onChange(s)}
                       className={`px-3 py-2 rounded-lg border text-xs font-medium transition-all text-left ${field.value === s
-                          ? 'border-teal-500 bg-teal-500/10 text-teal-300'
-                          : 'border-[#27272a] bg-[#18181b] text-[#71717a] hover:border-[#3f3f46] hover:text-white'
+                        ? 'border-teal-500 bg-teal-500/10 text-teal-300'
+                        : 'border-[#27272a] bg-[#18181b] text-[#71717a] hover:border-[#3f3f46] hover:text-white'
                         }`}
                     >
                       {s}
@@ -164,8 +164,8 @@ export default function QueueEditor({ artifact }: QueueEditorProps) {
                   type="button"
                   onClick={() => setValue('status', s, { shouldDirty: true })}
                   className={`px-4 py-2 rounded-lg border text-xs font-medium capitalize transition-all ${watchedStatus === s
-                      ? `${STATUS_COLORS[s]} border-current`
-                      : 'border-[#27272a] bg-[#18181b] text-[#71717a] hover:text-white'
+                    ? `${STATUS_COLORS[s]} border-current`
+                    : 'border-[#27272a] bg-[#18181b] text-[#71717a] hover:text-white'
                     }`}
                 >
                   {s}
@@ -213,8 +213,8 @@ export default function QueueEditor({ artifact }: QueueEditorProps) {
                       type="button"
                       onClick={() => toggleAgent(agent.id)}
                       className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg border transition-all text-left ${selected
-                          ? 'border-teal-500/40 bg-teal-500/8 text-white'
-                          : 'border-[#27272a] bg-[#18181b] text-[#a1a1aa] hover:border-[#3f3f46] hover:text-white'
+                        ? 'border-teal-500/40 bg-teal-500/8 text-white'
+                        : 'border-[#27272a] bg-[#18181b] text-[#a1a1aa] hover:border-[#3f3f46] hover:text-white'
                         }`}
                     >
                       <div className="relative">
@@ -262,8 +262,8 @@ export default function QueueEditor({ artifact }: QueueEditorProps) {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${saved
-                ? 'bg-emerald-500/20 border border-emerald-500/30 text-emerald-400'
-                : 'bg-teal-600 hover:bg-teal-700 text-white'
+              ? 'bg-emerald-500/20 border border-emerald-500/30 text-emerald-400'
+              : 'bg-teal-600 hover:bg-teal-700 text-white'
               }`}
           >
             {saved ? <CheckCircle size={14} /> : <Save size={14} />}

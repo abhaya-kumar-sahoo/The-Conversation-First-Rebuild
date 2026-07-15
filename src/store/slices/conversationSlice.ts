@@ -2,6 +2,30 @@ import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/tool
 import type { ChatMessage, MessageRole, ArtifactType } from '@/types';
 import { getAIProvider } from '@/providers';
 import { nanoid } from '@reduxjs/toolkit';
+import { createArtifact } from './artifactSlice';
+import { addToast } from './uiSlice';
+
+function getArtifactTitle(intentPayload: Record<string, unknown>, type: string): string {
+  const titles: Record<string, string> = {
+    'queue-editor': `${(intentPayload.name as string) || (intentPayload.queue as { name: string })?.name || 'Queue'} Editor`,
+    'queue-list': 'Call Queues',
+    'ivr-builder': `${(intentPayload.name as string) || 'IVR'} Flow Builder`,
+    'contact-table': 'Contact Directory',
+    'manager-table': 'Management Team',
+    'dashboard': 'Live Dashboard',
+    'report': 'Performance Report',
+    'analytics': 'Call Analytics',
+    'editable-document': (intentPayload.title as string) || 'Document',
+    'recordings': 'Call Recordings',
+    'confirmation-dialog': 'Confirm Action',
+    'campaign-builder': 'Campaign Builder',
+    'approval-sheet': 'Approvals',
+    'timeline': 'Timeline',
+    'search-results': 'Search Results',
+    'empty-state': 'Empty',
+  };
+  return titles[type] || 'Workspace';
+}
 
 interface ConversationState {
   messages: ChatMessage[];
@@ -84,6 +108,22 @@ export const sendMessage = createAsyncThunk(
       suggestions: intent.suggestions || [],
     }));
     dispatch(conversationSlice.actions.setStreaming({ isStreaming: false, messageId: null }));
+
+    if (intent.artifactType) {
+      dispatch(createArtifact({
+        type: intent.artifactType,
+        title: getArtifactTitle(intent.payload, intent.artifactType),
+        payload: intent.payload,
+        conversationId: nanoid(),
+      }));
+
+      dispatch(addToast({
+        id: nanoid(),
+        type: 'success',
+        title: 'Artifact created',
+        description: `${getArtifactTitle(intent.payload, intent.artifactType)} is ready`,
+      }));
+    }
 
     return { intent, conversationId };
   }

@@ -94,13 +94,6 @@ export default function QueueList({ artifact: _artifact }: QueueListProps) {
             </button>
           ))}
         </div>
-        <button
-          onClick={handleCreateNew}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-xs font-medium transition-colors"
-        >
-          <Plus size={13} />
-          New Queue
-        </button>
       </div>
 
       {/* Stats Bar */}
@@ -165,6 +158,17 @@ export default function QueueList({ artifact: _artifact }: QueueListProps) {
             <p className="text-sm">No queues match your filter</p>
           </div>
         )}
+      </div>
+
+      {/* Bottom Action */}
+      <div className="p-4 border-t border-[#27272a] bg-[#09090b]">
+        <button
+          onClick={handleCreateNew}
+          className="w-full flex justify-center items-center gap-2 px-4 py-2.5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-sm font-medium transition-colors"
+        >
+          <Plus size={16} />
+          Create New Queue
+        </button>
       </div>
     </div>
   );

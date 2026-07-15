@@ -137,7 +137,7 @@ export default function DashboardArtifact({ artifact: _artifact }: DashboardArti
               <span className="w-2 h-2 rounded-full bg-teal-500 inline-block" /> Total
             </span>
             <span className="flex items-center gap-1 text-[10px] text-[#52525b]">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" /> Answered
+              <span className="w-2 h-2 rounded-full bg-[#024fcaff] inline-block" /> Answered
             </span>
           </div>
         </div>
@@ -145,12 +145,13 @@ export default function DashboardArtifact({ artifact: _artifact }: DashboardArti
           <AreaChart data={last7} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
             <defs>
               <linearGradient id="totalGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#0d9488" stopOpacity={0.3} />
+                <stop offset="5%" stopColor="#0d9488" stopOpacity={0.35} />
                 <stop offset="95%" stopColor="#0d9488" stopOpacity={0} />
               </linearGradient>
+
               <linearGradient id="answeredGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#22c55e" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="#22c55e" stopOpacity={0} />
+                <stop offset="5%" stopColor="#024fcaff" stopOpacity={0.35} />
+                <stop offset="95%" stopColor="#024fcaff" stopOpacity={0} />
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={false} />
@@ -158,7 +159,7 @@ export default function DashboardArtifact({ artifact: _artifact }: DashboardArti
             <YAxis tick={{ fill: '#52525b', fontSize: 9 }} />
             <Tooltip content={<CustomTooltip />} />
             <Area type="monotone" dataKey="totalCalls" name="Total" stroke="#0d9488" fill="url(#totalGrad)" strokeWidth={2} dot={false} />
-            <Area type="monotone" dataKey="answeredCalls" name="Answered" stroke="#22c55e" fill="url(#answeredGrad)" strokeWidth={2} dot={false} />
+            <Area type="monotone" dataKey="answeredCalls" name="Answered" stroke="#024fcaff" fill="url(#answeredGrad)" strokeWidth={2} dot={false} />
           </AreaChart>
         </ResponsiveContainer>
       </motion.div>
@@ -182,8 +183,8 @@ export default function DashboardArtifact({ artifact: _artifact }: DashboardArti
                   {agent.name.split(' ').map(n => n[0]).join('')}
                 </div>
                 <div className={`absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full border border-[#18181b] ${agent.status === 'online' ? 'bg-emerald-400' :
-                    agent.status === 'busy' ? 'bg-amber-400' :
-                      agent.status === 'break' ? 'bg-blue-400' : 'bg-[#52525b]'
+                  agent.status === 'busy' ? 'bg-amber-400' :
+                    agent.status === 'break' ? 'bg-blue-400' : 'bg-[#52525b]'
                   }`} />
               </div>
               <div className="flex-1 min-w-0">
