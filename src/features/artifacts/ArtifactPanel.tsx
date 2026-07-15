@@ -47,7 +47,11 @@ export function ArtifactPanel() {
     } else if (e.key === 'ArrowRight') {
       handleNext();
     } else if (e.key === 'Delete' || e.key === 'Backspace') {
-      dispatch(deleteArtifact(activeArtifact.id));
+      // Only delete the tab if the user is focused directly on the panel container, 
+      // not if they are typing in an input or deleting a React Flow node.
+      if (e.target === e.currentTarget) {
+        dispatch(deleteArtifact(activeArtifact.id));
+      }
     }
   };
 

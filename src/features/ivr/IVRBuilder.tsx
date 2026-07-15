@@ -9,7 +9,11 @@ import ReactFlow, {
   type Connection,
   type NodeTypes,
   BackgroundVariant,
+  Handle,
+  Position,
+  useReactFlow,
 } from 'reactflow';
+import { X } from 'lucide-react';
 import 'reactflow/dist/style.css';
 import { motion } from 'framer-motion';
 import type { Artifact } from '@/types';
@@ -40,17 +44,50 @@ const nodeStyles = {
   } as Record<string, string>,
 };
 
-function IVRNode({ data }: { data: { label: string; type: string; message?: string } }) {
+function IVRNode({ id, data }: { id: string; data: { label: string; type: string; message?: string } }) {
+  const { setNodes } = useReactFlow();
   const colorClass = nodeStyles.colors[data.type] || 'bg-[#27272a] border-[#3f3f46] text-[#a1a1aa]';
   const icon = nodeStyles.icons[data.type] || '○';
+  
+  // Hide top target handle for "start" nodes, since nothing connects TO a start node
+  const isStart = data.type === 'ivr-start';
+
   return (
     <div className={`${nodeStyles.base} ${colorClass}`}>
-      <div className="flex items-center gap-2">
-        <span>{icon}</span>
-        <span className="font-semibold">{data.label}</span>
+      {!isStart && (
+        <Handle 
+          type="target" 
+          position={Position.Top} 
+          className="!bg-[#71717a] !w-2.5 !h-2.5 !border-0" 
+        />
+      )}
+      
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-2">
+          <span>{icon}</span>
+          <span className="font-semibold">{data.label}</span>
+        </div>
+        {!isStart && (
+          <button 
+            onClick={() => setNodes(nds => nds.filter(n => n.id !== id))}
+            className="w-4 h-4 rounded flex items-center justify-center opacity-50 hover:opacity-100 hover:bg-black/20 transition-all"
+            title="Delete Node"
+          >
+            <X size={10} />
+          </button>
+        )}
       </div>
       {data.message && (
         <p className="mt-1 text-[10px] opacity-70 truncate max-w-[140px]">{data.message}</p>
+      )}
+
+      {/* Hide bottom source handle for "hangup" nodes, since nothing connects FROM a hangup node */}
+      {data.type !== 'ivr-hangup' && (
+        <Handle 
+          type="source" 
+          position={Position.Bottom} 
+          className="!bg-[#71717a] !w-2.5 !h-2.5 !border-0" 
+        />
       )}
     </div>
   );

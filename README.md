@@ -20,6 +20,100 @@
 
 ---
 
+## ⌨️ Supported Commands Cheat Sheet
+
+The AI Workspace uses natural language processing to understand your goals. You don't have to memorize exact phrases—just type or speak conversationally! 
+
+Below is a section-by-section breakdown of the actions the AI supports, along with examples of how to trigger them.
+
+---
+
+### 📞 Queues & Routing Management
+*The core engine for routing calls to the right agents.*
+
+| Action | Example Commands |
+| :--- | :--- |
+| **Create a Queue** | `"Create a new queue"`, `"Add a Sales queue"`, `"Set up a queue"` |
+| **Edit a Queue** | `"Edit the Support queue"`, `"Update my queue"`, `"Modify queue routing"` |
+| **Delete a Queue** | `"Delete this queue"`, `"Remove the legacy queue"`, `"Disable queue"` |
+| **List all Queues** | `"Show all queues"`, `"List queues"`, `"View queues"` |
+| **Assign Agents** | `"Assign agents to Sales"`, `"Add John to the queue"`, `"Put agents on Support"` |
+| **Unassign Agents** | `"Unassign agents from Billing"`, `"Remove agent"` |
+
+---
+
+### 🔀 IVR (Interactive Voice Response)
+*Visual builders for automated phone menus.*
+
+| Action | Example Commands |
+| :--- | :--- |
+| **Create IVR** | `"Create an IVR"`, `"Build a new IVR flow"`, `"Interactive voice response for Support"` |
+| **Edit IVR** | `"Edit the Sales IVR"`, `"Update IVR tree"`, `"Modify IVR"` |
+
+---
+
+### 👥 Directory & Staff
+*Manage your workforce and contacts.*
+
+| Action | Example Commands |
+| :--- | :--- |
+| **Show Agents / Contacts** | `"Show all agents"`, `"List my contacts"`, `"Agent list"` |
+| **Show Managers** | `"Show managers"`, `"List management team"`, `"All managers"` |
+
+---
+
+### 📊 Dashboards & Analytics
+*Monitor live performance and historical trends.*
+
+| Action | Example Commands |
+| :--- | :--- |
+| **Live Dashboard** | `"Show dashboard"`, `"Today's stats"`, `"Live metrics"`, `"KPI overview"` |
+| **Detailed Analytics** | `"Show analytics"`, `"Analyze call volume"`, `"Show metrics and trends"` |
+| **Generate Reports** | `"Generate weekly report"`, `"Monthly performance summary"`, `"Create report"` |
+
+---
+
+### 🎧 Call Activity & Quality
+*Review individual interactions and lifecycles.*
+
+| Action | Example Commands |
+| :--- | :--- |
+| **Call Recordings** | `"Show call recordings"`, `"Listen to recorded calls"`, `"Call records"` |
+| **Customer Timeline** | `"Show customer timeline"`, `"View activity log"`, `"Journey history"` |
+
+---
+
+### 🎯 Campaigns & Outbound
+*Manage proactive customer outreach.*
+
+| Action | Example Commands |
+| :--- | :--- |
+| **Create Campaign** | `"Create a new campaign"`, `"Build an outbound campaign"` |
+
+---
+
+### 🛡️ Approvals & Security
+*Review administrative actions that require sign-off.*
+
+| Action | Example Commands |
+| :--- | :--- |
+| **View Approvals** | `"Show pending approvals"`, `"Review requests"`, `"Pending requests"` |
+
+---
+
+### 🔍 General Actions
+*System-wide utilities.*
+
+| Action | Example Commands |
+| :--- | :--- |
+| **Global Search** | `"Search for John"`, `"Find the billing record"`, `"Look for recent calls"` |
+
+> [!TIP]
+> **Pro Tip:** You can also use the **Command Palette (`Cmd + K` or `Ctrl + K`)** to instantly access many of these actions without typing them out in the chat!
+
+
+---
+
 ## 📝 Design Note: The Conversation-First Rebuild
 
 ### 🏢 1. The Original Product
