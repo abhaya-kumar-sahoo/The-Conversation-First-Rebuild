@@ -10,8 +10,8 @@ export function getAIProvider(): IAIProvider {
     // -------------------------------------------------------------
     // CHANGE THIS LINE TO TEST DIFFERENT AI MODELS
     // -------------------------------------------------------------
-    // activeProvider = new MockProvider(); 
-    activeProvider = new OllamaProvider();
+    activeProvider = new MockProvider();
+    // activeProvider = new OllamaProvider();
     // activeProvider = new GeminiProvider();
   }
   return activeProvider;

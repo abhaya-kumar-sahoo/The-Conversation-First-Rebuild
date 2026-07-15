@@ -56,7 +56,7 @@ export function AppLayout() {
   }, [dispatch]);
 
   return (
-    <div className="flex h-[100dvh] w-screen overflow-hidden bg-[#09090b]">
+    <div className="flex h-[100dvh] w-screen overflow-hidden bg-[#09090b] relative">
       {/* Left Sidebar */}
       <motion.div
         animate={{ width: sidebarCollapsed ? 56 : 260 }}

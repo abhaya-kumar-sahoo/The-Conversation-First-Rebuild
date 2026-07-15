@@ -21,7 +21,13 @@ const ARTIFACT_TYPE_LABELS: Record<string, string> = {
 
 export function ArtifactPanel() {
   const dispatch = useAppDispatch();
-  const { artifacts, activeArtifactId } = useAppSelector(s => s.artifacts);
+  const { artifacts: rawArtifacts, activeArtifactId } = useAppSelector(s => s.artifacts);
+
+  // Sort artifacts so pinned ones appear first
+  const artifacts = [...rawArtifacts].sort((a, b) => {
+    if (a.isPinned === b.isPinned) return 0;
+    return a.isPinned ? -1 : 1;
+  });
   const activeArtifact = artifacts.find(a => a.id === activeArtifactId) || artifacts[artifacts.length - 1];
   const activeIndex = artifacts.findIndex(a => a.id === activeArtifact?.id);
 

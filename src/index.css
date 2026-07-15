@@ -11,21 +11,21 @@
   --color-border-subtle: #1e1e23;
   --color-border-strong: #3f3f46;
 
-  --color-violet-50: #f5f3ff;
-  --color-violet-100: #ede9fe;
-  --color-violet-200: #ddd6fe;
-  --color-violet-300: #c4b5fd;
-  --color-violet-400: #a78bfa;
-  --color-violet-500: #8b5cf6;
-  --color-violet-600: #7c3aed;
-  --color-violet-700: #6d28d9;
-  --color-violet-800: #5b21b6;
-  --color-violet-900: #4c1d95;
+  --color-violet-50: #f0fdfa;
+  --color-violet-100: #ccfbf1;
+  --color-violet-200: #99f6e4;
+  --color-violet-300: #5eead4;
+  --color-violet-400: #2dd4bf;
+  --color-violet-500: #14b8a6;
+  --color-violet-600: #0d9488;
+  --color-violet-700: #0f766e;
+  --color-violet-800: #115e59;
+  --color-violet-900: #134e4a;
 
-  --color-accent: #7c3aed;
-  --color-accent-hover: #6d28d9;
-  --color-accent-subtle: rgba(124, 58, 237, 0.12);
-  --color-accent-glow: rgba(124, 58, 237, 0.3);
+  --color-accent: #0d9488;
+  --color-accent-hover: #0f766e;
+  --color-accent-subtle: rgba(13, 148, 136, 0.12);
+  --color-accent-glow: rgba(13, 148, 136, 0.3);
 
   --color-text-primary: #fafafa;
   --color-text-secondary: #a1a1aa;
@@ -87,13 +87,16 @@ body {
   width: 6px;
   height: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--color-bg-subtle);
   border-radius: 99px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-border-strong);
 }
@@ -129,19 +132,22 @@ body {
 }
 
 .shimmer {
-  background: linear-gradient(
-    90deg,
-    var(--color-bg-elevated) 25%,
-    var(--color-bg-subtle) 50%,
-    var(--color-bg-elevated) 75%
-  );
+  background: linear-gradient(90deg,
+      var(--color-bg-elevated) 25%,
+      var(--color-bg-subtle) 50%,
+      var(--color-bg-elevated) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
 
 @keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 .typing-cursor {
@@ -155,8 +161,15 @@ body {
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
 
 /* Panel resize handle */
@@ -167,6 +180,7 @@ body {
   transition: background 0.2s;
   flex-shrink: 0;
 }
+
 .resize-handle:hover {
   background: var(--color-accent);
 }
@@ -175,9 +189,11 @@ body {
 .react-flow__background {
   background-color: var(--color-bg-surface) !important;
 }
+
 .react-flow__edge-path {
   stroke: var(--color-border-strong) !important;
 }
+
 .react-flow__handle {
   background: var(--color-accent) !important;
   border: 2px solid var(--color-bg-elevated) !important;
@@ -193,13 +209,48 @@ body {
   font-family: var(--font-sans);
   line-height: 1.7;
 }
-.ProseMirror p { margin-bottom: 0.75rem; }
-.ProseMirror h1 { font-size: 1.875rem; font-weight: 700; margin-bottom: 1rem; color: var(--color-text-primary); }
-.ProseMirror h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--color-text-primary); }
-.ProseMirror h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--color-text-primary); }
-.ProseMirror ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 0.75rem; }
-.ProseMirror ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 0.75rem; }
-.ProseMirror li { margin-bottom: 0.25rem; }
+
+.ProseMirror p {
+  margin-bottom: 0.75rem;
+}
+
+.ProseMirror h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--color-text-primary);
+}
+
+.ProseMirror h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--color-text-primary);
+}
+
+.ProseMirror h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+}
+
+.ProseMirror ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.ProseMirror ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.ProseMirror li {
+  margin-bottom: 0.25rem;
+}
+
 .ProseMirror code {
   background: var(--color-bg-overlay);
   color: var(--color-violet-300);
@@ -208,6 +259,7 @@ body {
   border-radius: 4px;
   font-size: 0.875em;
 }
+
 .ProseMirror pre {
   background: var(--color-bg-overlay);
   padding: 1rem;
@@ -215,26 +267,36 @@ body {
   margin-bottom: 0.75rem;
   overflow-x: auto;
 }
-.ProseMirror pre code { background: none; padding: 0; }
+
+.ProseMirror pre code {
+  background: none;
+  padding: 0;
+}
+
 .ProseMirror blockquote {
   border-left: 3px solid var(--color-accent);
   padding-left: 1rem;
   color: var(--color-text-secondary);
   margin-bottom: 0.75rem;
 }
+
 .ProseMirror table {
   border-collapse: collapse;
   width: 100%;
   margin-bottom: 0.75rem;
 }
-.ProseMirror th, .ProseMirror td {
+
+.ProseMirror th,
+.ProseMirror td {
   border: 1px solid var(--color-border-default);
   padding: 0.5rem 0.75rem;
 }
+
 .ProseMirror th {
   background: var(--color-bg-elevated);
   font-weight: 600;
 }
+
 .ProseMirror p.is-editor-empty:first-child::before {
   color: var(--color-text-disabled);
   content: attr(data-placeholder);
@@ -247,18 +309,22 @@ body {
 .markdown-content p {
   margin-bottom: 0.75rem;
 }
+
 .markdown-content p:last-child {
   margin-bottom: 0;
 }
+
 .markdown-content ul {
   list-style: disc;
   margin-left: 1.25rem;
   margin-bottom: 0.75rem;
   margin-top: 0.25rem;
 }
+
 .markdown-content li {
   margin-bottom: 0.25rem;
 }
+
 .markdown-content strong {
   color: var(--color-text-primary);
   font-weight: 600;
