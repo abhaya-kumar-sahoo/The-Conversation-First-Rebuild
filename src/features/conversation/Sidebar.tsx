@@ -3,13 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   MessageSquare, Zap,
   ChevronLeft, ChevronRight, Plus, LayoutDashboard,
-  Phone, Users, BarChart2, User
+  Phone, Users, BarChart2
 } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/hooks/useStore';
 import { toggleSidebar } from '@/store/slices/uiSlice';
-import { clearMessages } from '@/store/slices/conversationSlice';
+import { clearMessages, sendMessage } from '@/store/slices/conversationSlice';
 import { clearAllArtifacts } from '@/store/slices/artifactSlice';
-import { sendMessage } from '@/store/slices/conversationSlice';
+import appIcon from '@/assets/icon.jpg';
 
 
 const QUICK_ACTIONS = [
@@ -59,8 +59,8 @@ export function Sidebar() {
               transition={{ duration: 0.15 }}
               className="flex items-center gap-2"
             >
-              <div className="w-10 h-10 rounded-lg bg-teal-600 flex items-center justify-center flex-shrink-0">
-                <User size={14} className="text-white" />
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
+                <img src={appIcon} alt="App Logo" className="w-full h-full object-cover" />
               </div>
               <div>
                 <div className="text-sm font-semibold text-white leading-none">Call Center</div>
