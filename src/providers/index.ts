@@ -1,14 +1,18 @@
 import type { IAIProvider } from './AIProvider';
 import { MockProvider } from './MockProvider';
+import { OllamaProvider } from './OllamaProvider';
+import { GeminiProvider } from './GeminiProvider';
 
 let activeProvider: IAIProvider | null = null;
 
 export function getAIProvider(): IAIProvider {
   if (!activeProvider) {
-    // Default to MockProvider as per the prompt instructions.
-    // In the future, this can read from environment variables or settings
-    // to instantiate OpenAIProvider, ClaudeProvider, etc.
-    activeProvider = new MockProvider();
+    // -------------------------------------------------------------
+    // CHANGE THIS LINE TO TEST DIFFERENT AI MODELS
+    // -------------------------------------------------------------
+    // activeProvider = new MockProvider(); 
+    activeProvider = new OllamaProvider();
+    // activeProvider = new GeminiProvider();
   }
   return activeProvider;
 }

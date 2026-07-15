@@ -87,11 +87,10 @@ export function ArtifactPanel() {
             <button
               key={artifact.id}
               onClick={() => dispatch(setActiveArtifact(artifact.id))}
-              className={`flex items-center gap-1.5 px-3 py-2 text-xs rounded-t-lg whitespace-nowrap transition-colors flex-shrink-0 border-b-2 ${
-                artifact.id === activeArtifact.id
-                  ? 'text-white border-violet-500 bg-[#18181b]'
-                  : 'text-[#71717a] border-transparent hover:text-white hover:bg-[#18181b]'
-              }`}
+              className={`flex items-center gap-1.5 px-3 py-2 text-xs rounded-t-lg whitespace-nowrap transition-colors flex-shrink-0 border-b-2 ${artifact.id === activeArtifact.id
+                ? 'text-white border-violet-500 bg-[#18181b]'
+                : 'text-[#71717a] border-transparent hover:text-white hover:bg-[#18181b]'
+                }`}
             >
               {artifact.isPinned && <span className="text-[8px] text-violet-400">●</span>}
               <span>{ARTIFACT_TYPE_LABELS[artifact.type]?.split(' ').slice(1).join(' ') || artifact.title}</span>

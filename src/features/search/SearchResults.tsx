@@ -11,6 +11,15 @@ export default function SearchResults({ artifact }: { artifact: Artifact }) {
     { id: 3, type: 'Recording', name: 'Call with Acme Corp', desc: 'Duration: 12:45 • Positive Sentiment', icon: Phone, match: query || 'Acme' },
   ];
 
+  const filteredResults = query
+    ? RESULTS.filter(
+        (r) =>
+          r.name.toLowerCase().includes(query.toLowerCase()) ||
+          r.desc.toLowerCase().includes(query.toLowerCase()) ||
+          r.type.toLowerCase().includes(query.toLowerCase())
+      )
+    : RESULTS;
+
   return (
     <div className="flex flex-col h-full bg-[#0f0f12] text-[#e4e4e7] p-6 overflow-y-auto">
       <div className="mb-6">
@@ -19,12 +28,12 @@ export default function SearchResults({ artifact }: { artifact: Artifact }) {
           Search Results
         </h2>
         <p className="text-sm text-[#a1a1aa] mt-2">
-          Found {RESULTS.length} results for <span className="text-white font-medium">"{query}"</span>
+          Found {filteredResults.length} results for <span className="text-white font-medium">"{query}"</span>
         </p>
       </div>
 
       <div className="space-y-3">
-        {RESULTS.map((res, idx) => (
+        {filteredResults.map((res, idx) => (
           <motion.div
             key={res.id}
             initial={{ opacity: 0, y: 10 }}
