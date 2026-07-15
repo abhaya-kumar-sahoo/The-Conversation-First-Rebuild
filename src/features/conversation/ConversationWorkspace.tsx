@@ -30,6 +30,8 @@ function getArtifactTitle(intentPayload: Record<string, unknown>, type: string):
 export function ConversationWorkspace() {
   const dispatch = useAppDispatch();
   const { messages, isStreaming } = useAppSelector(s => s.conversation);
+  console.log({ messages });
+
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

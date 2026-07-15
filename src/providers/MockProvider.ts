@@ -31,7 +31,7 @@ const INTENT_PATTERNS: IntentPattern[] = [
   },
   {
     type: 'assign-agents',
-    patterns: [/\bassign\b.*\bagent/i, /\badd\b.*\bagent/i, /\bput\b.*\bagent/i],
+    patterns: [/\bassign\b.*\bagent/i, /\badd\b.*\bagent/i, /\bput\b.*\bagent/i, /\bassign\b.*\bqueue/i],
     artifactType: 'queue-editor',
   },
   {
