@@ -68,11 +68,21 @@ export function AppLayout() {
       </motion.div>
 
       {/* Center Conversation */}
-      {(!artifactPanelExpanded || !hasArtifacts) && (
-        <div className="flex-1 min-w-0 flex flex-col overflow-hidden">
-          <ConversationWorkspace />
-        </div>
-      )}
+      <AnimatePresence initial={false}>
+        {(!artifactPanelExpanded || !hasArtifacts) && (
+          <motion.div
+            initial={{ width: 0, flex: 0, opacity: 0 }}
+            animate={{ width: 'auto', flex: 1, opacity: 1 }}
+            exit={{ width: 0, flex: 0, opacity: 0 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 40 }}
+            className="min-w-0 flex flex-col overflow-hidden h-full"
+          >
+            <div className="w-full h-full flex flex-col min-w-[300px]">
+              <ConversationWorkspace />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Resize Handle */}
       <AnimatePresence>
@@ -88,17 +98,22 @@ export function AppLayout() {
       </AnimatePresence>
 
       {/* Right Artifact Panel */}
-      <AnimatePresence>
+      <AnimatePresence initial={false}>
         {hasArtifacts && (
           <motion.div
             initial={{ width: 0, opacity: 0 }}
-            animate={{ width: artifactPanelExpanded ? '100%' : rightPanelWidth, opacity: 1 }}
+            animate={{
+              width: artifactPanelExpanded ? '100%' : rightPanelWidth,
+              flex: artifactPanelExpanded ? 1 : 'none',
+              opacity: 1
+            }}
             exit={{ width: 0, opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 35 }}
-            className={`border-l border-[#27272a] overflow-hidden ${artifactPanelExpanded ? 'flex-1 min-w-0' : 'flex-shrink-0'}`}
-            style={!artifactPanelExpanded ? { width: rightPanelWidth } : undefined}
+            transition={{ type: 'spring', stiffness: 400, damping: 40 }}
+            className="border-l border-[#27272a] overflow-hidden h-full flex flex-col"
           >
-            <ArtifactPanel />
+            <div className="w-full h-full min-w-[400px]">
+              <ArtifactPanel />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
