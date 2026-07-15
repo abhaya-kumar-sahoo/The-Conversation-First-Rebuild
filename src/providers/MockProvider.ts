@@ -304,7 +304,7 @@ export class MockProvider implements IAIProvider {
         return `Here's your **Call Center Analytics** dashboard.`;
 
       case 'help':
-        return `Welcome to **CallCenter AI Workspace**! You can ask me to create queues, assign agents, build IVRs, or view dashboards.`;
+        return `Welcome to **Call Center AI Workspace**! You can ask me to create queues, assign agents, build IVRs, or view dashboards.`;
       case 'unknown':
       default:
         return `I'm not sure I understood that. Could you rephrase your request? Try "Create a Sales queue" or "Show dashboard".`;

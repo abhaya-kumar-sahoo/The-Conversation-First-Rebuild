@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 import {
-  AreaChart, Area, BarChart, Bar, XAxis, YAxis,
+  AreaChart, Area, XAxis, YAxis,
   CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
-import { Phone, Users, Clock, TrendingUp, TrendingDown, Activity, Star, Zap } from 'lucide-react';
+import { Phone, Users, Clock, TrendingUp, TrendingDown, Activity, Star } from 'lucide-react';
 import { mockDashboardStats, mockCallMetrics, mockAgents } from '@/utils/mockData';
 import type { Artifact } from '@/types';
 
@@ -205,28 +205,6 @@ export default function DashboardArtifact({ artifact: _artifact }: DashboardArti
             </div>
           ))}
         </div>
-      </motion.div>
-
-      {/* Queue Performance Bar Chart */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.6 }}
-        className="p-4 rounded-xl bg-[#18181b] border border-[#27272a]"
-      >
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-xs font-semibold text-white">CSAT by Day</span>
-          <Zap size={13} className="text-teal-400" />
-        </div>
-        <ResponsiveContainer width="100%" height={100}>
-          <BarChart data={last7.slice(-7)} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={false} />
-            <XAxis dataKey="date" tick={{ fill: '#52525b', fontSize: 9 }} tickFormatter={d => d.slice(5)} />
-            <YAxis tick={{ fill: '#52525b', fontSize: 9 }} domain={[70, 100]} />
-            <Tooltip content={<CustomTooltip />} />
-            <Bar dataKey="satisfaction" name="CSAT" fill="#0d9488" radius={[4, 4, 0, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
       </motion.div>
     </div>
   );

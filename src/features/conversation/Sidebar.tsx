@@ -1,17 +1,16 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  MessageSquare, Pin, Clock, Bookmark, Zap, Settings,
+  MessageSquare, Zap,
   ChevronLeft, ChevronRight, Plus, LayoutDashboard,
-  Phone, Users, FileText, BarChart2, Mic, Search
+  Phone, Users, BarChart2, User
 } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/hooks/useStore';
 import { toggleSidebar } from '@/store/slices/uiSlice';
 import { clearMessages } from '@/store/slices/conversationSlice';
 import { clearAllArtifacts } from '@/store/slices/artifactSlice';
 import { sendMessage } from '@/store/slices/conversationSlice';
-import { mockSavedPrompts } from '@/utils/mockData';
-import type { AppDispatch } from '@/store';
+
 
 const QUICK_ACTIONS = [
   { icon: LayoutDashboard, label: 'Dashboard', prompt: 'Show me today\'s call center dashboard' },
@@ -21,12 +20,7 @@ const QUICK_ACTIONS = [
   { icon: BarChart2, label: 'Analytics', prompt: 'Show analytics and metrics' },
 ];
 
-const RECENT_ACTIVITIES = [
-  { label: 'Sales Queue updated', time: '2m ago', icon: '⚡' },
-  { label: 'IVR flow created', time: '15m ago', icon: '🔀' },
-  { label: 'Weekly report generated', time: '1h ago', icon: '📊' },
-  { label: 'Aman assigned to Support', time: '3h ago', icon: '👤' },
-];
+
 
 const CONVERSATION_HISTORY = [
   { id: '1', label: 'Sales queue optimization', time: 'Today' },
@@ -65,12 +59,12 @@ export function Sidebar() {
               transition={{ duration: 0.15 }}
               className="flex items-center gap-2"
             >
-              <div className="w-7 h-7 rounded-lg bg-teal-600 flex items-center justify-center flex-shrink-0">
-                <Mic size={14} className="text-white" />
+              <div className="w-10 h-10 rounded-lg bg-teal-600 flex items-center justify-center flex-shrink-0">
+                <User size={14} className="text-white" />
               </div>
               <div>
-                <div className="text-sm font-semibold text-white leading-none">CallCenter</div>
-                <div className="text-[10px] text-[#71717a] leading-none mt-0.5">AI Workspace</div>
+                <div className="text-sm font-semibold text-white leading-none">Call Center</div>
+                <div className="text-[10px] text-[#71717a] leading-none mt-0.5"></div>
               </div>
             </motion.div>
           )}
@@ -107,24 +101,14 @@ export function Sidebar() {
         </button>
       </div>
 
-      {/* Search */}
-      {!collapsed && (
-        <div className="px-3 mb-2">
-          <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#18181b] border border-[#27272a] text-[#71717a]">
-            <Search size={13} />
-            <span className="text-xs">Search workspace...</span>
-            <span className="ml-auto text-[10px] bg-[#27272a] px-1.5 py-0.5 rounded font-mono">⌘K</span>
-          </div>
-        </div>
-      )}
+
 
       {/* Navigation Tabs */}
       {!collapsed && (
         <div className="px-2.5 flex gap-1 mb-2">
           {[
-            { id: 'history', icon: MessageSquare, label: 'History' },
             { id: 'quick', icon: Zap, label: 'Quick' },
-            { id: 'saved', icon: Bookmark, label: 'Saved' },
+            { id: 'history', icon: MessageSquare, label: 'History' },
           ].map(tab => (
             <button
               key={tab.id}
@@ -162,7 +146,6 @@ export function Sidebar() {
                 >
                   <MessageSquare size={13} className="flex-shrink-0 text-[#52525b]" />
                   <span className="text-xs truncate">{conv.label}</span>
-                  <Pin size={11} className="ml-auto opacity-0 group-hover:opacity-100 text-[#52525b] flex-shrink-0" />
                 </button>
               ))}
               <div className="px-2 py-1.5 text-[10px] font-semibold text-[#52525b] uppercase tracking-wider mt-2">
@@ -214,49 +197,7 @@ export function Sidebar() {
                 </button>
               ))}
 
-              <div className="px-2 py-1.5 text-[10px] font-semibold text-[#52525b] uppercase tracking-wider mt-2">
-                Recent Activity
-              </div>
-              {RECENT_ACTIVITIES.map((activity, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-2 px-2 py-2 rounded-md text-[#71717a]"
-                >
-                  <span className="text-sm">{activity.icon}</span>
-                  <div className="min-w-0 flex-1">
-                    <div className="text-xs text-[#a1a1aa] truncate">{activity.label}</div>
-                    <div className="text-[10px] text-[#52525b]">{activity.time}</div>
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          )}
 
-          {!collapsed && activeSection === 'saved' && (
-            <motion.div
-              key="saved"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="space-y-0.5"
-            >
-              <div className="px-2 py-1.5 text-[10px] font-semibold text-[#52525b] uppercase tracking-wider">
-                Saved Prompts
-              </div>
-              {mockSavedPrompts.map((prompt) => (
-                <button
-                  key={prompt.id}
-                  onClick={() => handleQuickAction(prompt.prompt)}
-                  title={`Use saved prompt: ${prompt.label}`}
-                  className="w-full flex items-center gap-2 px-2 py-2 rounded-md text-[#a1a1aa] hover:text-white hover:bg-[#18181b] transition-colors text-left"
-                >
-                  <Bookmark size={12} className="flex-shrink-0 text-[#52525b]" />
-                  <div className="min-w-0 flex-1">
-                    <div className="text-xs truncate">{prompt.label}</div>
-                    <div className="text-[10px] text-[#52525b]">{prompt.category}</div>
-                  </div>
-                </button>
-              ))}
             </motion.div>
           )}
 

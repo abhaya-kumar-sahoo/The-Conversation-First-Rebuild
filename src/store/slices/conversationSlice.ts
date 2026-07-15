@@ -38,7 +38,7 @@ const initialState: ConversationState = {
     {
       id: 'welcome-msg',
       role: 'assistant' as MessageRole,
-      content: 'Hello! I\'m your **CallCenter AI** assistant.\n\nDescribe what you need and I\'ll create the right interface for you. Try:\n\n- "Create a Sales queue with Least Recent strategy"\n- "Show today\'s call recordings"\n- "Generate weekly performance report"\n- "Create IVR for customer support"\n\nPress **Ctrl+K** for quick commands.',
+      content: 'Hello! I\'m your **Call Center AI** assistant.\n\nDescribe what you need and I\'ll create the right interface for you. Try:\n\n- "Create a Sales queue with Least Recent strategy"\n- "Show today\'s call recordings"\n- "Generate weekly performance report"\n- "Create IVR for customer support"\n\nPress **Ctrl+K** for quick commands.',
       status: 'sent',
       timestamp: new Date().toISOString(),
       suggestions: [

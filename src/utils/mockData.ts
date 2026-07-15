@@ -578,15 +578,3 @@ export const mockDashboardStats = {
   topAgent: 'Priya Sharma',
 };
 
-// ============================================================
-// SAVED PROMPTS
-// ============================================================
-
-export const mockSavedPrompts = [
-  { id: 'sp-001', label: 'Today\'s recordings', prompt: 'Show today\'s call recordings', category: 'Recordings' },
-  { id: 'sp-002', label: 'Weekly report', prompt: 'Generate weekly performance report', category: 'Reports' },
-  { id: 'sp-003', label: 'Dashboard overview', prompt: 'Show me today\'s call center dashboard', category: 'Dashboard' },
-  { id: 'sp-004', label: 'All queues', prompt: 'Show all call queues', category: 'Queues' },
-  { id: 'sp-005', label: 'All agents', prompt: 'Show all agents', category: 'Contacts' },
-  { id: 'sp-006', label: 'IVR builder', prompt: 'Create IVR for customer support', category: 'IVR' },
-];
