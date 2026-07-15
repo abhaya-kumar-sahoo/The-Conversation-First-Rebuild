@@ -28,8 +28,8 @@ const STAT_CARDS = [
     change: '+12.3%',
     positive: true,
     icon: Phone,
-    color: 'text-violet-400',
-    bg: 'bg-violet-400/10',
+    color: 'text-teal-400',
+    bg: 'bg-teal-400/10',
   },
   {
     label: 'Agents Available',
@@ -134,7 +134,7 @@ export default function DashboardArtifact({ artifact: _artifact }: DashboardArti
           <span className="text-xs font-semibold text-white">Call Volume (7 Days)</span>
           <div className="flex gap-3">
             <span className="flex items-center gap-1 text-[10px] text-[#52525b]">
-              <span className="w-2 h-2 rounded-full bg-violet-500 inline-block" /> Total
+              <span className="w-2 h-2 rounded-full bg-teal-500 inline-block" /> Total
             </span>
             <span className="flex items-center gap-1 text-[10px] text-[#52525b]">
               <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" /> Answered
@@ -145,8 +145,8 @@ export default function DashboardArtifact({ artifact: _artifact }: DashboardArti
           <AreaChart data={last7} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
             <defs>
               <linearGradient id="totalGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#7c3aed" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="#7c3aed" stopOpacity={0} />
+                <stop offset="5%" stopColor="#0d9488" stopOpacity={0.3} />
+                <stop offset="95%" stopColor="#0d9488" stopOpacity={0} />
               </linearGradient>
               <linearGradient id="answeredGrad" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#22c55e" stopOpacity={0.3} />
@@ -157,7 +157,7 @@ export default function DashboardArtifact({ artifact: _artifact }: DashboardArti
             <XAxis dataKey="date" tick={{ fill: '#52525b', fontSize: 9 }} tickFormatter={d => d.slice(5)} />
             <YAxis tick={{ fill: '#52525b', fontSize: 9 }} />
             <Tooltip content={<CustomTooltip />} />
-            <Area type="monotone" dataKey="totalCalls" name="Total" stroke="#7c3aed" fill="url(#totalGrad)" strokeWidth={2} dot={false} />
+            <Area type="monotone" dataKey="totalCalls" name="Total" stroke="#0d9488" fill="url(#totalGrad)" strokeWidth={2} dot={false} />
             <Area type="monotone" dataKey="answeredCalls" name="Answered" stroke="#22c55e" fill="url(#answeredGrad)" strokeWidth={2} dot={false} />
           </AreaChart>
         </ResponsiveContainer>
@@ -181,11 +181,10 @@ export default function DashboardArtifact({ artifact: _artifact }: DashboardArti
                 <div className="w-6 h-6 rounded-full bg-[#27272a] flex items-center justify-center text-[9px] font-semibold text-[#a1a1aa]">
                   {agent.name.split(' ').map(n => n[0]).join('')}
                 </div>
-                <div className={`absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full border border-[#18181b] ${
-                  agent.status === 'online' ? 'bg-emerald-400' :
-                  agent.status === 'busy' ? 'bg-amber-400' :
-                  agent.status === 'break' ? 'bg-blue-400' : 'bg-[#52525b]'
-                }`} />
+                <div className={`absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full border border-[#18181b] ${agent.status === 'online' ? 'bg-emerald-400' :
+                    agent.status === 'busy' ? 'bg-amber-400' :
+                      agent.status === 'break' ? 'bg-blue-400' : 'bg-[#52525b]'
+                  }`} />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between mb-0.5">
@@ -197,7 +196,7 @@ export default function DashboardArtifact({ artifact: _artifact }: DashboardArti
                     initial={{ width: 0 }}
                     animate={{ width: `${agent.satisfaction}%` }}
                     transition={{ delay: 0.5, duration: 0.8 }}
-                    className="h-full rounded-full bg-violet-500"
+                    className="h-full rounded-full bg-teal-500"
                   />
                 </div>
               </div>
@@ -216,7 +215,7 @@ export default function DashboardArtifact({ artifact: _artifact }: DashboardArti
       >
         <div className="flex items-center justify-between mb-3">
           <span className="text-xs font-semibold text-white">CSAT by Day</span>
-          <Zap size={13} className="text-violet-400" />
+          <Zap size={13} className="text-teal-400" />
         </div>
         <ResponsiveContainer width="100%" height={100}>
           <BarChart data={last7.slice(-7)} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
@@ -224,7 +223,7 @@ export default function DashboardArtifact({ artifact: _artifact }: DashboardArti
             <XAxis dataKey="date" tick={{ fill: '#52525b', fontSize: 9 }} tickFormatter={d => d.slice(5)} />
             <YAxis tick={{ fill: '#52525b', fontSize: 9 }} domain={[70, 100]} />
             <Tooltip content={<CustomTooltip />} />
-            <Bar dataKey="satisfaction" name="CSAT" fill="#7c3aed" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="satisfaction" name="CSAT" fill="#0d9488" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </motion.div>

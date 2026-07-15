@@ -33,7 +33,7 @@ export function PromptBox({ onSend, isStreaming }: PromptBoxProps) {
   const [placeholder, setPlaceholder] = useState('');
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [isPlaceholderTyping, setIsPlaceholderTyping] = useState(true);
-  
+
   // Slash commands state
   const [showSlashMenu, setShowSlashMenu] = useState(false);
   const [slashFilter, setSlashFilter] = useState('');
@@ -137,7 +137,7 @@ export function PromptBox({ onSend, isStreaming }: PromptBoxProps) {
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const val = e.target.value;
     setValue(val);
-    
+
     // Check for slash menu
     if (val.startsWith('/')) {
       setShowSlashMenu(true);
@@ -179,12 +179,11 @@ export function PromptBox({ onSend, isStreaming }: PromptBoxProps) {
                       key={cmd.id}
                       onClick={() => applySlashCommand(cmd)}
                       onMouseEnter={() => setSlashIndex(idx)}
-                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-colors ${
-                        idx === slashIndex ? 'bg-violet-600/20 text-white' : 'text-[#a1a1aa] hover:bg-[#27272a]'
-                      }`}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-colors ${idx === slashIndex ? 'bg-teal-600/20 text-white' : 'text-[#a1a1aa] hover:bg-[#27272a]'
+                        }`}
                     >
                       <div className="flex items-center gap-2">
-                        <Command size={12} className={idx === slashIndex ? 'text-violet-400' : 'text-[#52525b]'} />
+                        <Command size={12} className={idx === slashIndex ? 'text-teal-400' : 'text-[#52525b]'} />
                         <span className="text-[13px] font-medium">{cmd.label}</span>
                       </div>
                       <span className="text-[11px] text-[#71717a]">{cmd.desc}</span>
@@ -217,20 +216,20 @@ export function PromptBox({ onSend, isStreaming }: PromptBoxProps) {
             {/* Attachment (UI only) */}
             <button
               className="w-8 h-8 rounded-lg flex items-center justify-center text-[#52525b] hover:text-[#a1a1aa] hover:bg-[#27272a] transition-colors"
-              title="Attach file (coming soon)"
+              title="Attach a file, document, or image to the conversation (Coming soon)"
             >
               <Paperclip size={14} />
             </button>
             {/* Voice (UI only) */}
             <button
               className="w-8 h-8 rounded-lg flex items-center justify-center text-[#52525b] hover:text-[#a1a1aa] hover:bg-[#27272a] transition-colors"
-              title="Voice input (coming soon)"
+              title="Use your microphone to speak your prompt (Coming soon)"
             >
               <Mic size={14} />
             </button>
             <button
               className="w-8 h-8 rounded-lg flex items-center justify-center text-[#52525b] hover:text-[#a1a1aa] hover:bg-[#27272a] transition-colors"
-              title="AI suggestions"
+              title="View AI suggestions for what you can ask next"
             >
               <Sparkles size={14} />
             </button>
@@ -253,7 +252,7 @@ export function PromptBox({ onSend, isStreaming }: PromptBoxProps) {
             <button
               onClick={handleSubmit}
               disabled={!value.trim() || isStreaming}
-              className="w-8 h-8 rounded-lg flex items-center justify-center bg-violet-600 text-white disabled:opacity-30 hover:bg-violet-700 transition-colors disabled:cursor-not-allowed"
+              className="w-8 h-8 rounded-lg flex items-center justify-center bg-teal-600 text-white disabled:opacity-30 hover:bg-teal-700 transition-colors disabled:cursor-not-allowed"
             >
               {isStreaming ? (
                 <motion.div

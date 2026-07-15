@@ -11,16 +11,16 @@
   --color-border-subtle: #1e1e23;
   --color-border-strong: #3f3f46;
 
-  --color-violet-50: #f0fdfa;
-  --color-violet-100: #ccfbf1;
-  --color-violet-200: #99f6e4;
-  --color-violet-300: #5eead4;
-  --color-violet-400: #2dd4bf;
-  --color-violet-500: #14b8a6;
-  --color-violet-600: #0d9488;
-  --color-violet-700: #0f766e;
-  --color-violet-800: #115e59;
-  --color-violet-900: #134e4a;
+  --color-teal-50: #f0fdfa;
+  --color-teal-100: #ccfbf1;
+  --color-teal-200: #99f6e4;
+  --color-teal-300: #5eead4;
+  --color-teal-400: #2dd4bf;
+  --color-teal-500: #14b8a6;
+  --color-teal-600: #0d9488;
+  --color-teal-700: #0f766e;
+  --color-teal-800: #115e59;
+  --color-teal-900: #134e4a;
 
   --color-accent: #0d9488;
   --color-accent-hover: #0f766e;
@@ -104,7 +104,7 @@ body {
 /* Selection */
 ::selection {
   background: var(--color-accent-subtle);
-  color: var(--color-violet-200);
+  color: var(--color-teal-200);
 }
 
 /* Focus ring */
@@ -121,14 +121,14 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #a78bfa 0%, #7c3aed 50%, #6366f1 100%);
+  background: linear-gradient(135deg, var(--color-teal-400) 0%, var(--color-teal-600) 50%, var(--color-teal-500) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.gradient-violet {
-  background: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%);
+.gradient-teal {
+  background: linear-gradient(135deg, var(--color-teal-600) 0%, var(--color-teal-500) 100%);
 }
 
 .shimmer {
@@ -253,7 +253,7 @@ body {
 
 .ProseMirror code {
   background: var(--color-bg-overlay);
-  color: var(--color-violet-300);
+  color: var(--color-teal-300);
   font-family: var(--font-mono);
   padding: 0.125rem 0.375rem;
   border-radius: 4px;

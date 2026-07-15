@@ -73,7 +73,7 @@ export function ConversationWorkspace() {
   return (
     <div className="flex flex-col h-full bg-transparent relative overflow-hidden">
       {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[800px] bg-violet-700/20 blur-[200px] rounded-full pointer-events-none z-0" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[800px] bg-teal-700/20 blur-[200px] rounded-full pointer-events-none z-0" />
       {/* Header */}
       <div className="flex items-center justify-between px-6 py-3 border-b border-[#27272a]">
         <div className="flex items-center gap-3">

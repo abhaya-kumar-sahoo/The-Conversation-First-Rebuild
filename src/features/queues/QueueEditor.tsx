@@ -100,7 +100,7 @@ export default function QueueEditor({ artifact }: QueueEditorProps) {
             <label className="text-xs font-medium text-[#a1a1aa]">Queue Name</label>
             <input
               {...register('name')}
-              className="w-full px-3 py-2.5 rounded-lg bg-[#18181b] border border-[#27272a] text-white text-sm outline-none focus:border-violet-500/50 focus:ring-1 focus:ring-violet-500/20 transition-colors"
+              className="w-full px-3 py-2.5 rounded-lg bg-[#18181b] border border-[#27272a] text-white text-sm outline-none focus:border-teal-500/50 focus:ring-1 focus:ring-teal-500/20 transition-colors"
               placeholder="e.g., Sales Queue"
             />
             {errors.name && <p className="text-xs text-red-400">{errors.name.message}</p>}
@@ -119,11 +119,10 @@ export default function QueueEditor({ artifact }: QueueEditorProps) {
                       key={s}
                       type="button"
                       onClick={() => field.onChange(s)}
-                      className={`px-3 py-2 rounded-lg border text-xs font-medium transition-all text-left ${
-                        field.value === s
-                          ? 'border-violet-500 bg-violet-500/10 text-violet-300'
+                      className={`px-3 py-2 rounded-lg border text-xs font-medium transition-all text-left ${field.value === s
+                          ? 'border-teal-500 bg-teal-500/10 text-teal-300'
                           : 'border-[#27272a] bg-[#18181b] text-[#71717a] hover:border-[#3f3f46] hover:text-white'
-                      }`}
+                        }`}
                     >
                       {s}
                     </button>
@@ -146,7 +145,7 @@ export default function QueueEditor({ artifact }: QueueEditorProps) {
                   <input
                     {...register(key)}
                     type="number"
-                    className="w-full px-3 py-2.5 pr-10 rounded-lg bg-[#18181b] border border-[#27272a] text-white text-sm outline-none focus:border-violet-500/50 transition-colors"
+                    className="w-full px-3 py-2.5 pr-10 rounded-lg bg-[#18181b] border border-[#27272a] text-white text-sm outline-none focus:border-teal-500/50 transition-colors"
                   />
                   <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#52525b]">{unit}</span>
                 </div>
@@ -164,11 +163,10 @@ export default function QueueEditor({ artifact }: QueueEditorProps) {
                   key={s}
                   type="button"
                   onClick={() => setValue('status', s, { shouldDirty: true })}
-                  className={`px-4 py-2 rounded-lg border text-xs font-medium capitalize transition-all ${
-                    watchedStatus === s
+                  className={`px-4 py-2 rounded-lg border text-xs font-medium capitalize transition-all ${watchedStatus === s
                       ? `${STATUS_COLORS[s]} border-current`
                       : 'border-[#27272a] bg-[#18181b] text-[#71717a] hover:text-white'
-                  }`}
+                    }`}
                 >
                   {s}
                 </button>
@@ -182,7 +180,7 @@ export default function QueueEditor({ artifact }: QueueEditorProps) {
             <textarea
               {...register('description')}
               rows={2}
-              className="w-full px-3 py-2.5 rounded-lg bg-[#18181b] border border-[#27272a] text-white text-sm outline-none focus:border-violet-500/50 resize-none transition-colors"
+              className="w-full px-3 py-2.5 rounded-lg bg-[#18181b] border border-[#27272a] text-white text-sm outline-none focus:border-teal-500/50 resize-none transition-colors"
               placeholder="Optional queue description..."
             />
           </div>
@@ -214,11 +212,10 @@ export default function QueueEditor({ artifact }: QueueEditorProps) {
                       key={agent.id}
                       type="button"
                       onClick={() => toggleAgent(agent.id)}
-                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg border transition-all text-left ${
-                        selected
-                          ? 'border-violet-500/40 bg-violet-500/8 text-white'
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg border transition-all text-left ${selected
+                          ? 'border-teal-500/40 bg-teal-500/8 text-white'
                           : 'border-[#27272a] bg-[#18181b] text-[#a1a1aa] hover:border-[#3f3f46] hover:text-white'
-                      }`}
+                        }`}
                     >
                       <div className="relative">
                         <div className="w-8 h-8 rounded-full bg-[#27272a] flex items-center justify-center text-xs font-semibold">
@@ -230,7 +227,7 @@ export default function QueueEditor({ artifact }: QueueEditorProps) {
                         <div className="text-xs font-medium truncate">{agent.name}</div>
                         <div className="text-[10px] text-[#52525b] truncate">{agent.department} · Ext {agent.extension}</div>
                       </div>
-                      {selected && <CheckCircle size={14} className="text-violet-400 flex-shrink-0" />}
+                      {selected && <CheckCircle size={14} className="text-teal-400 flex-shrink-0" />}
                     </button>
                   );
                 })}
@@ -246,7 +243,7 @@ export default function QueueEditor({ artifact }: QueueEditorProps) {
               {ACTIVITY_TIMELINE.map((item, i) => (
                 <div key={i} className="flex items-start gap-3 relative">
                   <div className="absolute -left-4 top-0.5 w-3 h-3 rounded-full bg-[#09090b] border border-[#27272a] flex items-center justify-center flex-shrink-0">
-                    <div className="w-1.5 h-1.5 rounded-full bg-violet-500" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-teal-500" />
                   </div>
                   <div>
                     <div className="text-xs text-[#a1a1aa]">{item.event}</div>
@@ -264,11 +261,10 @@ export default function QueueEditor({ artifact }: QueueEditorProps) {
             type="submit"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
-              saved
+            className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${saved
                 ? 'bg-emerald-500/20 border border-emerald-500/30 text-emerald-400'
-                : 'bg-violet-600 hover:bg-violet-700 text-white'
-            }`}
+                : 'bg-teal-600 hover:bg-teal-700 text-white'
+              }`}
           >
             {saved ? <CheckCircle size={14} /> : <Save size={14} />}
             {saved ? 'Saved!' : isDirty ? 'Save Changes' : 'Save Queue'}

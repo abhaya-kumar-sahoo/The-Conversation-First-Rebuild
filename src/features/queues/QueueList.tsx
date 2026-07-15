@@ -8,7 +8,7 @@ import { nanoid } from '@reduxjs/toolkit';
 import type { Artifact, Queue } from '@/types';
 
 const STRATEGY_COLORS: Record<string, string> = {
-  'Least Recent': 'text-violet-400 bg-violet-400/10',
+  'Least Recent': 'text-teal-400 bg-teal-400/10',
   'Ring All': 'text-blue-400 bg-blue-400/10',
   'Round Robin': 'text-emerald-400 bg-emerald-400/10',
   'Fewest Calls': 'text-amber-400 bg-amber-400/10',
@@ -85,11 +85,10 @@ export default function QueueList({ artifact: _artifact }: QueueListProps) {
             <button
               key={s}
               onClick={() => setStatusFilter(s)}
-              className={`px-2.5 py-1.5 rounded-md text-xs capitalize transition-colors ${
-                statusFilter === s
-                  ? 'bg-violet-600/20 text-violet-300 border border-violet-500/30'
+              className={`px-2.5 py-1.5 rounded-md text-xs capitalize transition-colors ${statusFilter === s
+                  ? 'bg-teal-600/20 text-teal-300 border border-teal-500/30'
                   : 'text-[#71717a] hover:text-white hover:bg-[#27272a]'
-              }`}
+                }`}
             >
               {s}
             </button>
@@ -97,7 +96,7 @@ export default function QueueList({ artifact: _artifact }: QueueListProps) {
         </div>
         <button
           onClick={handleCreateNew}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-violet-600 hover:bg-violet-700 text-white text-xs font-medium transition-colors"
+          className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-xs font-medium transition-colors"
         >
           <Plus size={13} />
           New Queue
@@ -138,7 +137,7 @@ export default function QueueList({ artifact: _artifact }: QueueListProps) {
                   </span>
                 </div>
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className={`text-[10px] px-2 py-0.5 rounded-full ${STRATEGY_COLORS[queue.strategy] || 'text-violet-400 bg-violet-400/10'}`}>
+                  <span className={`text-[10px] px-2 py-0.5 rounded-full ${STRATEGY_COLORS[queue.strategy] || 'text-teal-400 bg-teal-400/10'}`}>
                     {queue.strategy}
                   </span>
                   <span className="text-[10px] text-[#52525b]">Ring: {queue.ringTime}s</span>
@@ -150,7 +149,7 @@ export default function QueueList({ artifact: _artifact }: QueueListProps) {
                 initial={false}
                 animate={{ opacity: 0 }}
                 whileHover={{ opacity: 1 }}
-                className="text-[10px] text-violet-400 border border-violet-500/30 px-2 py-1 rounded-md group-hover:opacity-100 opacity-0 transition-opacity"
+                className="text-[10px] text-teal-400 border border-teal-500/30 px-2 py-1 rounded-md group-hover:opacity-100 opacity-0 transition-opacity"
               >
                 Edit →
               </motion.div>

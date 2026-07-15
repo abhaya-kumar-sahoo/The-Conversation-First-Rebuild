@@ -57,6 +57,7 @@ export function ArtifactPanel() {
             <button
               onClick={handlePrev}
               disabled={activeIndex === 0}
+              title="Go back to the previously viewed artifact"
               className="w-6 h-6 rounded flex items-center justify-center text-[#52525b] hover:text-white hover:bg-[#27272a] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
               <ChevronLeft size={13} />
@@ -64,6 +65,7 @@ export function ArtifactPanel() {
             <button
               onClick={handleNext}
               disabled={activeIndex >= artifacts.length - 1}
+              title="Go forward to the next viewed artifact"
               className="w-6 h-6 rounded flex items-center justify-center text-[#52525b] hover:text-white hover:bg-[#27272a] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
               <ChevronRight size={13} />
@@ -72,15 +74,15 @@ export function ArtifactPanel() {
             <button
               onClick={() => dispatch(pinArtifact(activeArtifact.id))}
               className="w-6 h-6 rounded flex items-center justify-center text-[#52525b] hover:text-white hover:bg-[#27272a] transition-colors"
-              title={activeArtifact.isPinned ? 'Unpin' : 'Pin'}
+              title={activeArtifact.isPinned ? "Unpin this artifact to allow it to be closed naturally" : "Pin this artifact to keep it permanently accessible"}
             >
-              {activeArtifact.isPinned ? <PinOff size={13} className="text-violet-400" /> : <Pin size={13} />}
+              {activeArtifact.isPinned ? <PinOff size={13} className="text-teal-400" /> : <Pin size={13} />}
             </button>
             {/* Close */}
             <button
               onClick={() => dispatch(deleteArtifact(activeArtifact.id))}
               className="w-6 h-6 rounded flex items-center justify-center text-[#52525b] hover:text-red-400 hover:bg-[#27272a] transition-colors"
-              title="Close artifact (Esc)"
+              title="Close this artifact and remove it from the workspace (Esc)"
             >
               <X size={13} />
             </button>
@@ -94,11 +96,11 @@ export function ArtifactPanel() {
               key={artifact.id}
               onClick={() => dispatch(setActiveArtifact(artifact.id))}
               className={`flex items-center gap-1.5 px-3 py-2 text-xs rounded-t-lg whitespace-nowrap transition-colors flex-shrink-0 border-b-2 ${artifact.id === activeArtifact.id
-                ? 'text-white border-violet-500 bg-[#18181b]'
+                ? 'text-white border-teal-500 bg-[#18181b]'
                 : 'text-[#71717a] border-transparent hover:text-white hover:bg-[#18181b]'
                 }`}
             >
-              {artifact.isPinned && <span className="text-[8px] text-violet-400">●</span>}
+              {artifact.isPinned && <span className="text-[8px] text-teal-400">●</span>}
               <span>{ARTIFACT_TYPE_LABELS[artifact.type]?.split(' ').slice(1).join(' ') || artifact.title}</span>
             </button>
           ))}

@@ -29,7 +29,7 @@ export default function ManagerTable({ artifact: _artifact }: ManagerTableProps)
       header: 'Manager',
       cell: ({ row }) => (
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center text-xs font-semibold text-white">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-600 to-indigo-600 flex items-center justify-center text-xs font-semibold text-white">
             {row.original.name.split(' ').map(n => n[0]).join('')}
           </div>
           <div>
@@ -43,7 +43,7 @@ export default function ManagerTable({ artifact: _artifact }: ManagerTableProps)
       accessorKey: 'department',
       header: 'Department',
       cell: ({ getValue }) => (
-        <span className="text-xs text-violet-400 bg-violet-400/10 px-2 py-0.5 rounded-full">
+        <span className="text-xs text-teal-400 bg-teal-400/10 px-2 py-0.5 rounded-full">
           {getValue<string>()}
         </span>
       ),

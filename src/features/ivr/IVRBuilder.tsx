@@ -22,7 +22,7 @@ const nodeStyles = {
   base: 'rounded-xl border text-xs font-medium px-4 py-3 min-w-[140px] shadow-lg',
   colors: {
     'ivr-start': 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300',
-    'ivr-menu': 'bg-violet-500/20 border-violet-500/40 text-violet-300',
+    'ivr-menu': 'bg-teal-500/20 border-teal-500/40 text-teal-300',
     'ivr-playback': 'bg-blue-500/20 border-blue-500/40 text-blue-300',
     'ivr-queue': 'bg-amber-500/20 border-amber-500/40 text-amber-300',
     'ivr-transfer': 'bg-cyan-500/20 border-cyan-500/40 text-cyan-300',
@@ -114,8 +114,8 @@ function getInitialFlow(name: string) {
   ];
 
   const edges = [
-    { id: 'e1-2', source: '1', target: '2', animated: true, style: { stroke: '#7c3aed' } },
-    { id: 'e2-3', source: '2', target: '3', animated: true, style: { stroke: '#7c3aed' } },
+    { id: 'e1-2', source: '1', target: '2', animated: true, style: { stroke: '#0d9488' } },
+    { id: 'e2-3', source: '2', target: '3', animated: true, style: { stroke: '#0d9488' } },
     { id: 'e3-4', source: '3', target: '4', label: 'Press 1', labelStyle: { fill: '#a1a1aa', fontSize: 10 } },
     { id: 'e3-5', source: '3', target: '5', label: 'Press 2', labelStyle: { fill: '#a1a1aa', fontSize: 10 } },
     { id: 'e3-6', source: '3', target: '6', label: 'No input', labelStyle: { fill: '#a1a1aa', fontSize: 10 } },
@@ -152,7 +152,7 @@ export default function IVRBuilder({ artifact }: IVRBuilderProps) {
   const [nodeCount, setNodeCount] = useState(initNodes.length);
 
   const onConnect = useCallback(
-    (connection: Connection) => setEdges(eds => addEdge({ ...connection, animated: true, style: { stroke: '#7c3aed' } }, eds)),
+    (connection: Connection) => setEdges(eds => addEdge({ ...connection, animated: true, style: { stroke: '#0d9488' } }, eds)),
     [setEdges]
   );
 
@@ -219,7 +219,7 @@ export default function IVRBuilder({ artifact }: IVRBuilderProps) {
               border: '1px solid #27272a',
               borderRadius: 8,
             }}
-            nodeColor="#7c3aed"
+            nodeColor="#0d9488"
           />
         </ReactFlow>
       </div>

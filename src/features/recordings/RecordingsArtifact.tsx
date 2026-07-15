@@ -40,7 +40,7 @@ export default function RecordingsArtifact({ artifact: _artifact }: RecordingsAr
       accessorKey: 'play',
       header: '',
       cell: () => (
-        <button className="text-violet-400 hover:text-violet-300 transition-colors">
+        <button className="text-teal-400 hover:text-teal-300 transition-colors">
           <PlayCircle size={18} />
         </button>
       ),

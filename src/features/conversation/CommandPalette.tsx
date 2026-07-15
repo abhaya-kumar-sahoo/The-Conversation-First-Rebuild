@@ -146,11 +146,10 @@ export function CommandPalette() {
                   key={cmd.id}
                   onMouseEnter={() => setSelected(i)}
                   onClick={() => runCommand(cmd.prompt)}
-                  className={`w-full flex items-center gap-3 px-4 py-2.5 text-left transition-colors ${
-                    i === selected ? 'bg-violet-600/20 text-white' : 'text-[#a1a1aa] hover:bg-[#27272a]'
-                  }`}
+                  className={`w-full flex items-center gap-3 px-4 py-2.5 text-left transition-colors ${i === selected ? 'bg-teal-600/20 text-white' : 'text-[#a1a1aa] hover:bg-[#27272a]'
+                    }`}
                 >
-                  <cmd.icon size={15} className={i === selected ? 'text-violet-400' : 'text-[#52525b]'} />
+                  <cmd.icon size={15} className={i === selected ? 'text-teal-400' : 'text-[#52525b]'} />
                   <span className="text-sm flex-1">{cmd.label}</span>
                   <span className="text-[10px] text-[#52525b] bg-[#27272a] px-2 py-0.5 rounded-full">
                     {cmd.category}
@@ -162,11 +161,10 @@ export function CommandPalette() {
               {query.length > 3 && (
                 <button
                   onClick={() => runCommand(query)}
-                  className={`w-full flex items-center gap-3 px-4 py-2.5 text-left border-t border-[#27272a] mt-1 pt-2 transition-colors ${
-                    selected === filtered.length ? 'bg-violet-600/20 text-white' : 'text-[#71717a] hover:bg-[#27272a]'
-                  }`}
+                  className={`w-full flex items-center gap-3 px-4 py-2.5 text-left border-t border-[#27272a] mt-1 pt-2 transition-colors ${selected === filtered.length ? 'bg-teal-600/20 text-white' : 'text-[#71717a] hover:bg-[#27272a]'
+                    }`}
                 >
-                  <Zap size={15} className="text-violet-400" />
+                  <Zap size={15} className="text-teal-400" />
                   <span className="text-sm flex-1">Ask AI: <span className="text-white">"{query}"</span></span>
                 </button>
               )}

@@ -13,18 +13,18 @@ export default function SearchResults({ artifact }: { artifact: Artifact }) {
 
   const filteredResults = query
     ? RESULTS.filter(
-        (r) =>
-          r.name.toLowerCase().includes(query.toLowerCase()) ||
-          r.desc.toLowerCase().includes(query.toLowerCase()) ||
-          r.type.toLowerCase().includes(query.toLowerCase())
-      )
+      (r) =>
+        r.name.toLowerCase().includes(query.toLowerCase()) ||
+        r.desc.toLowerCase().includes(query.toLowerCase()) ||
+        r.type.toLowerCase().includes(query.toLowerCase())
+    )
     : RESULTS;
 
   return (
     <div className="flex flex-col h-full bg-[#0f0f12] text-[#e4e4e7] p-6 overflow-y-auto">
       <div className="mb-6">
         <h2 className="text-xl font-semibold text-white flex items-center gap-2">
-          <Search size={20} className="text-violet-400" />
+          <Search size={20} className="text-teal-400" />
           Search Results
         </h2>
         <p className="text-sm text-[#a1a1aa] mt-2">
@@ -45,7 +45,7 @@ export default function SearchResults({ artifact }: { artifact: Artifact }) {
               <res.icon size={18} />
             </div>
             <div>
-              <div className="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-1">{res.type}</div>
+              <div className="text-xs font-semibold text-teal-400 uppercase tracking-wider mb-1">{res.type}</div>
               <div className="text-sm font-medium text-white">{res.name}</div>
               <div className="text-xs text-[#a1a1aa] mt-0.5">{res.desc}</div>
             </div>

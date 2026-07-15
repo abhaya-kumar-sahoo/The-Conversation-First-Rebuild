@@ -79,7 +79,7 @@ export default function AnalyticsArtifact({ artifact: _artifact }: AnalyticsArti
               <YAxis tick={{ fill: '#52525b', fontSize: 10 }} />
               <Tooltip content={<CustomTooltip />} />
               <Legend wrapperStyle={{ fontSize: '10px', color: '#a1a1aa' }} />
-              <Line type="monotone" dataKey="avgHandleTime" name="Handle Time (s)" stroke="#7c3aed" strokeWidth={2} dot={{ r: 3, fill: '#7c3aed' }} />
+              <Line type="monotone" dataKey="avgHandleTime" name="Handle Time (s)" stroke="#0d9488" strokeWidth={2} dot={{ r: 3, fill: '#0d9488' }} />
               <Line type="monotone" dataKey="avgWaitTime" name="Wait Time (s)" stroke="#f59e0b" strokeWidth={2} dot={{ r: 3, fill: '#f59e0b' }} />
             </LineChart>
           </ResponsiveContainer>

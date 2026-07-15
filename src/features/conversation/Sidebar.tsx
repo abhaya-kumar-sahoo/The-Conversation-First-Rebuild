@@ -66,7 +66,7 @@ export function Sidebar() {
               transition={{ duration: 0.15 }}
               className="flex items-center gap-2"
             >
-              <div className="w-7 h-7 rounded-lg bg-violet-600 flex items-center justify-center flex-shrink-0">
+              <div className="w-7 h-7 rounded-lg bg-teal-600 flex items-center justify-center flex-shrink-0">
                 <Mic size={14} className="text-white" />
               </div>
               <div>
@@ -78,6 +78,7 @@ export function Sidebar() {
         </AnimatePresence>
         <button
           onClick={() => dispatch(toggleSidebar())}
+          title={collapsed ? "Expand the sidebar to view your conversation history" : "Collapse the sidebar to focus on your workspace"}
           className="w-7 h-7 rounded-md flex items-center justify-center text-[#71717a] hover:text-white hover:bg-[#27272a] transition-colors"
         >
           {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
@@ -88,7 +89,8 @@ export function Sidebar() {
       <div className={`${collapsed ? 'px-3 py-3' : 'px-3 py-3'}`}>
         <button
           onClick={handleNewConversation}
-          className={`w-full flex items-center ${collapsed ? 'justify-center' : 'gap-2'} px-3 py-2 rounded-lg bg-violet-600 hover:bg-violet-700 text-white text-sm font-medium transition-colors`}
+          title="Start a new conversation to begin a fresh task"
+          className={`w-full flex items-center ${collapsed ? 'justify-center' : 'gap-2'} px-3 py-2 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-sm font-medium transition-colors`}
         >
           <Plus size={14} />
           <AnimatePresence mode="wait">
@@ -208,7 +210,7 @@ export function Sidebar() {
                   onClick={() => handleQuickAction(action.prompt)}
                   className="w-full flex items-center gap-2.5 px-2 py-2 rounded-md text-[#a1a1aa] hover:text-white hover:bg-[#18181b] transition-colors text-left"
                 >
-                  <action.icon size={13} className="flex-shrink-0 text-violet-400" />
+                  <action.icon size={13} className="flex-shrink-0 text-teal-400" />
                   <span className="text-xs">{action.label}</span>
                 </button>
               ))}
@@ -246,6 +248,7 @@ export function Sidebar() {
                 <button
                   key={prompt.id}
                   onClick={() => handleQuickAction(prompt.prompt)}
+                  title={`Use saved prompt: ${prompt.label}`}
                   className="w-full flex items-center gap-2 px-2 py-2 rounded-md text-[#a1a1aa] hover:text-white hover:bg-[#18181b] transition-colors text-left"
                 >
                   <Bookmark size={12} className="flex-shrink-0 text-[#52525b]" />
@@ -271,7 +274,6 @@ export function Sidebar() {
                 <button
                   key={action.label}
                   onClick={() => handleQuickAction(action.prompt)}
-                  title={action.label}
                   className="w-9 h-9 rounded-lg flex items-center justify-center text-[#71717a] hover:text-white hover:bg-[#18181b] transition-colors"
                 >
                   <action.icon size={15} />
@@ -282,13 +284,7 @@ export function Sidebar() {
         </AnimatePresence>
       </div>
 
-      {/* Bottom */}
-      <div className={`border-t border-[#27272a] p-3 ${collapsed ? 'flex justify-center' : ''}`}>
-        <button className={`flex items-center gap-2 ${collapsed ? 'w-9 h-9 justify-center' : 'w-full px-2 py-2'} rounded-lg text-[#71717a] hover:text-white hover:bg-[#18181b] transition-colors`}>
-          <Settings size={14} />
-          {!collapsed && <span className="text-xs">Settings</span>}
-        </button>
-      </div>
+
     </div>
   );
 }

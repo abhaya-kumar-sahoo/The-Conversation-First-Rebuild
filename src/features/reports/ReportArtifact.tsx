@@ -27,7 +27,7 @@ interface ReportArtifactProps {
 
 export default function ReportArtifact({ artifact: _artifact }: ReportArtifactProps) {
   const last7 = mockCallMetrics.slice(-7);
-  
+
   const totalCallsWeek = last7.reduce((sum, d) => sum + d.totalCalls, 0);
   const totalAnsweredWeek = last7.reduce((sum, d) => sum + d.answeredCalls, 0);
   const avgCSATWeek = Math.round(last7.reduce((sum, d) => sum + d.satisfaction, 0) / 7);
@@ -40,7 +40,7 @@ export default function ReportArtifact({ artifact: _artifact }: ReportArtifactPr
           <Calendar size={14} className="text-[#52525b]" />
           <span className="text-xs text-[#a1a1aa]">Last 7 Days</span>
         </div>
-        <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-violet-600/20 text-violet-400 border border-violet-500/30 hover:bg-violet-600 hover:text-white transition-colors text-xs font-medium">
+        <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-teal-600/20 text-teal-400 border border-teal-500/30 hover:bg-teal-600 hover:text-white transition-colors text-xs font-medium">
           <Download size={13} />
           Export PDF
         </button>
@@ -83,15 +83,15 @@ export default function ReportArtifact({ artifact: _artifact }: ReportArtifactPr
             <AreaChart data={last7} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
               <defs>
                 <linearGradient id="colorTotal" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#7c3aed" stopOpacity={0.3}/>
-                  <stop offset="95%" stopColor="#7c3aed" stopOpacity={0}/>
+                  <stop offset="5%" stopColor="#0d9488" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#0d9488" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={false} />
               <XAxis dataKey="date" tick={{ fill: '#52525b', fontSize: 10 }} tickFormatter={d => d.slice(5)} />
               <YAxis tick={{ fill: '#52525b', fontSize: 10 }} />
               <Tooltip content={<CustomTooltip />} />
-              <Area type="monotone" dataKey="totalCalls" name="Total Calls" stroke="#7c3aed" fillOpacity={1} fill="url(#colorTotal)" />
+              <Area type="monotone" dataKey="totalCalls" name="Total Calls" stroke="#0d9488" fillOpacity={1} fill="url(#colorTotal)" />
             </AreaChart>
           </ResponsiveContainer>
         </motion.div>
@@ -121,7 +121,7 @@ export default function ReportArtifact({ artifact: _artifact }: ReportArtifactPr
                   <td className="px-4 py-2.5 text-[#a1a1aa]">{day.date}</td>
                   <td className="px-4 py-2.5 text-right text-white">{day.totalCalls}</td>
                   <td className="px-4 py-2.5 text-right text-emerald-400">{day.answeredCalls}</td>
-                  <td className="px-4 py-2.5 text-right text-violet-400">{day.satisfaction}%</td>
+                  <td className="px-4 py-2.5 text-right text-teal-400">{day.satisfaction}%</td>
                 </tr>
               ))}
             </tbody>

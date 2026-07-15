@@ -38,7 +38,7 @@ export default function ContactTable({ artifact: _artifact }: ContactTableProps)
           type="checkbox"
           checked={table.getIsAllPageRowsSelected()}
           onChange={table.getToggleAllPageRowsSelectedHandler()}
-          className="accent-violet-500 w-3.5 h-3.5"
+          className="accent-teal-500 w-3.5 h-3.5"
         />
       ),
       cell: ({ row }) => (
@@ -46,7 +46,7 @@ export default function ContactTable({ artifact: _artifact }: ContactTableProps)
           type="checkbox"
           checked={row.getIsSelected()}
           onChange={row.getToggleSelectedHandler()}
-          className="accent-violet-500 w-3.5 h-3.5"
+          className="accent-teal-500 w-3.5 h-3.5"
         />
       ),
       size: 40,
@@ -164,7 +164,7 @@ export default function ContactTable({ artifact: _artifact }: ContactTableProps)
             animate={{ opacity: 1, scale: 1 }}
             className="flex items-center gap-2"
           >
-            <span className="text-xs text-violet-400">{selectedCount} selected</span>
+            <span className="text-xs text-teal-400">{selectedCount} selected</span>
             <button className="text-xs px-2.5 py-1.5 rounded-lg bg-[#27272a] text-[#a1a1aa] hover:text-white transition-colors">
               Export
             </button>

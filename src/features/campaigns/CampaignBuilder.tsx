@@ -20,7 +20,7 @@ export default function CampaignBuilder({ artifact }: { artifact: Artifact }) {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h2 className="text-xl font-semibold text-white flex items-center gap-2">
-            <TrendingUp size={20} className="text-violet-400" />
+            <TrendingUp size={20} className="text-teal-400" />
             Campaign Builder
           </h2>
           <p className="text-xs text-[#71717a] mt-1">Configure automated outbound dialing campaigns</p>
@@ -35,7 +35,7 @@ export default function CampaignBuilder({ artifact }: { artifact: Artifact }) {
               <Play size={12} /> Start
             </button>
           )}
-          <button className="px-3 py-1.5 rounded bg-violet-600 hover:bg-violet-700 text-white text-xs font-medium flex items-center gap-1 transition-colors">
+          <button className="px-3 py-1.5 rounded bg-teal-600 hover:bg-teal-700 text-white text-xs font-medium flex items-center gap-1 transition-colors">
             <Save size={12} /> Save
           </button>
         </div>
@@ -45,18 +45,18 @@ export default function CampaignBuilder({ artifact }: { artifact: Artifact }) {
         <div className="space-y-4">
           <div>
             <label className="block text-xs font-medium text-[#a1a1aa] mb-1.5">Campaign Name</label>
-            <input 
+            <input
               value={campaign.name}
               onChange={e => setCampaign({ ...campaign, name: e.target.value })}
-              className="w-full bg-[#18181b] border border-[#27272a] rounded-lg px-3 py-2 text-sm focus:border-violet-500 outline-none"
+              className="w-full bg-[#18181b] border border-[#27272a] rounded-lg px-3 py-2 text-sm focus:border-teal-500 outline-none"
             />
           </div>
           <div>
             <label className="block text-xs font-medium text-[#a1a1aa] mb-1.5">Campaign Type</label>
-            <select 
+            <select
               value={campaign.type}
               onChange={e => setCampaign({ ...campaign, type: e.target.value as any })}
-              className="w-full bg-[#18181b] border border-[#27272a] rounded-lg px-3 py-2 text-sm focus:border-violet-500 outline-none"
+              className="w-full bg-[#18181b] border border-[#27272a] rounded-lg px-3 py-2 text-sm focus:border-teal-500 outline-none"
             >
               <option value="outbound">Progressive Dialer</option>
               <option value="predictive">Predictive Dialer</option>
@@ -65,11 +65,11 @@ export default function CampaignBuilder({ artifact }: { artifact: Artifact }) {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-medium text-[#a1a1aa] mb-1.5 flex items-center gap-1"><Calendar size={12}/> Start Date</label>
+              <label className="block text-xs font-medium text-[#a1a1aa] mb-1.5 flex items-center gap-1"><Calendar size={12} /> Start Date</label>
               <input type="date" value={campaign.startDate} className="w-full bg-[#18181b] border border-[#27272a] rounded-lg px-3 py-2 text-sm outline-none" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-[#a1a1aa] mb-1.5 flex items-center gap-1"><PhoneCall size={12}/> Target Calls</label>
+              <label className="block text-xs font-medium text-[#a1a1aa] mb-1.5 flex items-center gap-1"><PhoneCall size={12} /> Target Calls</label>
               <input type="number" value={campaign.targetCalls} className="w-full bg-[#18181b] border border-[#27272a] rounded-lg px-3 py-2 text-sm outline-none" />
             </div>
           </div>
@@ -77,18 +77,18 @@ export default function CampaignBuilder({ artifact }: { artifact: Artifact }) {
 
         <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-4">
           <h3 className="text-sm font-medium text-white mb-4 flex items-center gap-2">
-            <Users size={16} className="text-violet-400" /> Target Audience
+            <Users size={16} className="text-teal-400" /> Target Audience
           </h3>
           <div className="space-y-3">
             <div className="flex items-center gap-3 p-3 rounded-lg border border-[#27272a] bg-[#09090b]">
-              <input type="radio" name="audience" defaultChecked className="accent-violet-500" />
+              <input type="radio" name="audience" defaultChecked className="accent-teal-500" />
               <div>
                 <div className="text-sm font-medium">Lead List (CSV)</div>
                 <div className="text-[10px] text-[#71717a]">Upload a custom list of contacts</div>
               </div>
             </div>
             <div className="flex items-center gap-3 p-3 rounded-lg border border-[#27272a] bg-[#09090b]">
-              <input type="radio" name="audience" className="accent-violet-500" />
+              <input type="radio" name="audience" className="accent-teal-500" />
               <div>
                 <div className="text-sm font-medium">CRM Segment</div>
                 <div className="text-[10px] text-[#71717a]">Connect to Salesforce or HubSpot</div>
