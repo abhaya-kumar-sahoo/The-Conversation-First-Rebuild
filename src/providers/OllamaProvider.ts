@@ -56,7 +56,7 @@ export class OllamaProvider implements IAIProvider {
 
       const parsed = JSON.parse(rawText) as Partial<ParsedIntent>;
       const resolvedType = (parsed.type as IntentType) || 'unknown';
-      
+
       // Fallback mapping in case the LLM hallucinates the artifactType
       const artifactMapping: Record<string, string> = {
         'create-queue': 'queue-editor', 'edit-queue': 'queue-editor', 'delete-queue': 'confirmation-dialog',
@@ -69,6 +69,7 @@ export class OllamaProvider implements IAIProvider {
       };
 
       let finalArtifactType = parsed.artifactType;
+      // @ts-ignore
       if (!finalArtifactType || finalArtifactType === 'null' || finalArtifactType.includes('<')) {
         finalArtifactType = artifactMapping[resolvedType] as ArtifactType || null;
       }

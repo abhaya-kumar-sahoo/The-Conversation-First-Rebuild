@@ -9,7 +9,7 @@ import { toggleCommandPalette, setRightPanelWidth } from '@/store/slices/uiSlice
 export function AppLayout() {
   const dispatch = useAppDispatch();
   const { sidebarCollapsed, rightPanelWidth, artifactPanelExpanded } = useAppSelector(s => s.ui);
-  const { artifacts, activeArtifactId } = useAppSelector(s => s.artifacts);
+  const { artifacts } = useAppSelector(s => s.artifacts);
   const hasArtifacts = artifacts.length > 0;
   const isResizing = useRef(false);
   const startX = useRef(0);

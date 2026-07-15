@@ -1,7 +1,5 @@
 import type { IAIProvider } from './AIProvider';
 import { MockProvider } from './MockProvider';
-import { OllamaProvider } from './OllamaProvider';
-import { GeminiProvider } from './GeminiProvider';
 
 let activeProvider: IAIProvider | null = null;
 

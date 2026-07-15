@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { AlertTriangle, Trash2, X } from 'lucide-react';
+import { AlertTriangle, Trash2 } from 'lucide-react';
 import { useAppDispatch } from '@/hooks/useStore';
 import { deleteArtifact } from '@/store/slices/artifactSlice';
 import { addToast } from '@/store/slices/uiSlice';

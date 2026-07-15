@@ -1,4 +1,4 @@
-import { Check, X, Clock, AlertCircle } from 'lucide-react';
+import { Check, Clock, AlertCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const MOCK_APPROVALS = [

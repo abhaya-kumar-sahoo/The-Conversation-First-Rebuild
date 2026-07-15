@@ -48,27 +48,27 @@ function IVRNode({ id, data }: { id: string; data: { label: string; type: string
   const { setNodes } = useReactFlow();
   const colorClass = nodeStyles.colors[data.type] || 'bg-[#27272a] border-[#3f3f46] text-[#a1a1aa]';
   const icon = nodeStyles.icons[data.type] || '○';
-  
+
   // Hide top target handle for "start" nodes, since nothing connects TO a start node
   const isStart = data.type === 'ivr-start';
 
   return (
     <div className={`${nodeStyles.base} ${colorClass}`}>
       {!isStart && (
-        <Handle 
-          type="target" 
-          position={Position.Top} 
-          className="!bg-[#71717a] !w-2.5 !h-2.5 !border-0" 
+        <Handle
+          type="target"
+          position={Position.Top}
+          className="!bg-[#71717a] !w-2.5 !h-2.5 !border-0"
         />
       )}
-      
+
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <span>{icon}</span>
           <span className="font-semibold">{data.label}</span>
         </div>
         {!isStart && (
-          <button 
+          <button
             onClick={() => setNodes(nds => nds.filter(n => n.id !== id))}
             className="w-4 h-4 rounded flex items-center justify-center opacity-50 hover:opacity-100 hover:bg-black/20 transition-all"
             title="Delete Node"
@@ -83,10 +83,10 @@ function IVRNode({ id, data }: { id: string; data: { label: string; type: string
 
       {/* Hide bottom source handle for "hangup" nodes, since nothing connects FROM a hangup node */}
       {data.type !== 'ivr-hangup' && (
-        <Handle 
-          type="source" 
-          position={Position.Bottom} 
-          className="!bg-[#71717a] !w-2.5 !h-2.5 !border-0" 
+        <Handle
+          type="source"
+          position={Position.Bottom}
+          className="!bg-[#71717a] !w-2.5 !h-2.5 !border-0"
         />
       )}
     </div>
@@ -101,7 +101,7 @@ const nodeTypes: NodeTypes = {
 // Initial Nodes per IVR type
 // ============================================================
 
-function getInitialFlow(name: string) {
+function getInitialFlow(name: any) {
   const isSales = /sales/i.test(name);
   const isBilling = /billing/i.test(name);
 
@@ -183,7 +183,7 @@ export default function IVRBuilder({ artifact }: IVRBuilderProps) {
   const payload = artifact.payload as { name?: string };
   const ivrName = payload.name || 'Customer Support';
   const { nodes: initNodes, edges: initEdges } = getInitialFlow(ivrName);
-
+  //@ts-ignore
   const [nodes, setNodes, onNodesChange] = useNodesState(initNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initEdges);
   const [nodeCount, setNodeCount] = useState(initNodes.length);

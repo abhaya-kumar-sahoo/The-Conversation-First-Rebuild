@@ -3,7 +3,7 @@ import {
   LineChart, Line, BarChart, Bar, XAxis, YAxis,
   CartesianGrid, Tooltip, ResponsiveContainer, Legend
 } from 'recharts';
-import { Filter, Calendar } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import { mockCallMetrics } from '@/utils/mockData';
 import type { Artifact } from '@/types';
 

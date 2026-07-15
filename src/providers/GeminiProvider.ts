@@ -1,4 +1,4 @@
-import type { ParsedIntent, IntentType, ArtifactType } from '@/types';
+import type { ParsedIntent } from '@/types';
 import type { IAIProvider } from './AIProvider';
 
 const SYSTEM_PROMPT = `
@@ -58,7 +58,7 @@ export class GeminiProvider implements IAIProvider {
 
       const data = await response.json();
       const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-      
+
       if (!rawText) throw new Error('Empty response from Gemini');
 
       const parsed = JSON.parse(rawText) as Partial<ParsedIntent>;

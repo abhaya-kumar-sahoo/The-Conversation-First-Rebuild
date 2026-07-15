@@ -274,6 +274,7 @@ export class MockProvider implements IAIProvider {
       case 'delete-queue':
         return `I need your confirmation to delete the Queue. This action is irreversible.`;
       case 'show-queues':
+        console.log(input)
         return `Here are all **${mockQueues.length} call queues** in your workspace.`;
       case 'assign-agents': {
         const agents = (payload.agentIds as string[]) || [];

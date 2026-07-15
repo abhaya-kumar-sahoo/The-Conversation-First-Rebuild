@@ -10,8 +10,6 @@ const DashboardArtifact = lazy(() => import('@/features/dashboard/DashboardArtif
 const ReportArtifact = lazy(() => import('@/features/reports/ReportArtifact'));
 const AnalyticsArtifact = lazy(() => import('@/features/reports/AnalyticsArtifact'));
 const RecordingsArtifact = lazy(() => import('@/features/recordings/RecordingsArtifact'));
-const ConfirmationDialog = lazy(() => import('@/features/artifacts/ConfirmationDialog'));
-const EmptyState = lazy(() => import('@/features/artifacts/EmptyState'));
 const CampaignBuilder = lazy(() => import('@/features/campaigns/CampaignBuilder'));
 const ApprovalSheet = lazy(() => import('@/features/approvals/ApprovalSheet'));
 const TimelineArtifact = lazy(() => import('@/features/timeline/TimelineArtifact'));

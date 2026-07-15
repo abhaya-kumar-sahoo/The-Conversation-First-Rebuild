@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Zap, LayoutDashboard, Users, Phone, BarChart2, FileText, X } from 'lucide-react';
+import { Search, Zap, LayoutDashboard, Users, Phone, BarChart2, X } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/hooks/useStore';
 import { setCommandPaletteOpen } from '@/store/slices/uiSlice';
 import { sendMessage } from '@/store/slices/conversationSlice';

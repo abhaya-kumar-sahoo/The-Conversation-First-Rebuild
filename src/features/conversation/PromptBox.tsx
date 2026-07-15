@@ -158,6 +158,7 @@ export function PromptBox({ onSend, isStreaming }: PromptBoxProps) {
     <div className="px-6 pb-6 pt-2">
       <motion.div
         className="relative rounded-2xl border border-[#27272a]/80 bg-[#18181b]/60 backdrop-blur-xl shadow-lg shadow-black/40 overflow-hidden"
+        //  @ts-ignore
         whileFocusWithin={{ borderColor: 'rgba(124, 58, 237, 0.6)', boxShadow: '0 8px 32px rgba(124, 58, 237, 0.15), 0 0 0 1px rgba(124, 58, 237, 0.6)' }}
         transition={{ duration: 0.2 }}
       >

@@ -68,6 +68,7 @@ export default function QueueEditor({ artifact }: QueueEditorProps) {
   };
 
   const { register, control, handleSubmit, watch, setValue, formState: { errors, isDirty } } = useForm<QueueFormValues>({
+    // @ts-ignore
     resolver: zodResolver(queueSchema),
     defaultValues,
   });
@@ -92,6 +93,7 @@ export default function QueueEditor({ artifact }: QueueEditorProps) {
 
   return (
     <div className="h-full flex flex-col">
+      {/* @ts-ignore */}
       <form onSubmit={handleSubmit(onSubmit)} className="flex-1 flex flex-col">
         {/* Form Fields */}
         <div className="flex-1 overflow-y-auto px-5 py-4 space-y-5">

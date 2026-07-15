@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Play, Pause, Save, Calendar, Users, PhoneCall, TrendingUp } from 'lucide-react';
 import type { Artifact, Campaign } from '@/types';
 

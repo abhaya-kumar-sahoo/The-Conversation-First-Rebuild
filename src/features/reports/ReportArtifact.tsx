@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 import {
-  AreaChart, Area, BarChart, Bar, XAxis, YAxis,
+  AreaChart, Area, XAxis, YAxis,
   CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
-import { Download, Calendar, Activity, CheckCircle, TrendingUp, TrendingDown } from 'lucide-react';
+import { Download, Calendar, Activity, CheckCircle, TrendingDown } from 'lucide-react';
 import { mockCallMetrics } from '@/utils/mockData';
 import type { Artifact } from '@/types';
 
