@@ -20,10 +20,9 @@ const SAMPLE_PROMPTS = [
 ];
 
 const SLASH_COMMANDS = [
-  { id: 'queue', label: '/queue', desc: 'Create a new queue', query: 'Create a queue' },
+  { id: 'queue', label: '/queue', desc: 'Create a new queue', query: 'Create Support queue' },
   { id: 'campaign', label: '/campaign', desc: 'Build an outbound campaign', query: 'Create an outbound campaign' },
   { id: 'ivr', label: '/ivr', desc: 'Build an IVR flow', query: 'Create IVR flow' },
-  { id: 'search', label: '/search', desc: 'Search directory', query: 'Search ' },
   { id: 'approvals', label: '/approvals', desc: 'Show pending approvals', query: 'Show pending approvals' },
   { id: 'timeline', label: '/timeline', desc: 'View activity timeline', query: 'Show timeline' },
 ];

@@ -152,11 +152,6 @@ function extractNameGenerics(input: string, fallback: string): string {
   return fallback;
 }
 
-function extractSearchTerm(input: string): string {
-  const m = input.match(/search(?:\s+for)?\s+(.+)/i) || input.match(/find\s+(.+)/i);
-  if (m?.[1]) return m[1].trim();
-  return input;
-}
 
 export class MockProvider implements IAIProvider {
   async parseIntent(input: string, context?: Artifact | null): Promise<ParsedIntent> {

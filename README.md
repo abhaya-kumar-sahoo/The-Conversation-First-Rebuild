@@ -33,7 +33,7 @@ Below is a section-by-section breakdown of the actions the AI supports, along wi
 
 | Action | Example Commands |
 | :--- | :--- |
-| **Create a Queue** | `"Create a new queue"`, `"Add a Sales queue"`, `"Set up a queue"` |
+| **Create a Queue** | `"Create VIP queue"`, `"Add a Sales queue"`, `"Create Support queue"` |
 | **Edit a Queue** | `"Edit the Support queue"`, `"Update my queue"`, `"Modify queue routing"` |
 | **Delete a Queue** | `"Delete this queue"`, `"Remove the legacy queue"`, `"Disable queue"` |
 | **List all Queues** | `"Show all queues"`, `"List queues"`, `"View queues"` |
