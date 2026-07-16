@@ -73,6 +73,7 @@ export const sendMessage = createAsyncThunk(
     // Parse intent using the active provider
     const provider = getAIProvider();
     const intent = await provider.parseIntent(userInput);
+    // console.log({ intent });
 
     // Add streaming assistant message
     const assistantMessageId = nanoid();
@@ -85,8 +86,8 @@ export const sendMessage = createAsyncThunk(
       artifactType: intent.artifactType as ArtifactType | undefined,
       isStreaming: true,
     }));
-    dispatch(conversationSlice.actions.setStreaming({ isStreaming: true, messageId: assistantMessageId }));
 
+    dispatch(conversationSlice.actions.setStreaming({ isStreaming: true, messageId: assistantMessageId }));
     // Simulate streaming text
     const fullText = intent.responseText;
     const words = fullText.split(' ');
@@ -139,6 +140,7 @@ const conversationSlice = createSlice({
       const msg = state.messages.find(m => m.id === action.payload.messageId);
       if (msg) {
         msg.content = action.payload.content;
+
       }
     },
     finalizeMessage(state, action: PayloadAction<{ messageId: string; suggestions: string[] }>) {

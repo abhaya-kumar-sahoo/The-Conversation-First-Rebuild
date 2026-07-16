@@ -8,7 +8,7 @@ import { PromptBox } from './PromptBox';
 export function ConversationWorkspace() {
   const dispatch = useAppDispatch();
   const { messages, isStreaming } = useAppSelector(s => s.conversation);
-  console.log({ messages });
+  // console.log({ messages });
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
