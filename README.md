@@ -47,7 +47,7 @@ Below is a section-by-section breakdown of the actions the AI supports, along wi
 
 | Action | Example Commands |
 | :--- | :--- |
-| **Create IVR** | `"Create an IVR"`, `"Build a new IVR flow"`, `"Interactive voice response for Support"` |
+| **Create / Open IVR** | `"Create an IVR"`, `"Open IVR"`, `"Build a new IVR flow"` |
 | **Edit IVR** | `"Edit the Sales IVR"`, `"Update IVR tree"`, `"Modify IVR"` |
 
 ---
@@ -99,14 +99,7 @@ Below is a section-by-section breakdown of the actions the AI supports, along wi
 | :--- | :--- |
 | **View Approvals** | `"Show pending approvals"`, `"Review requests"`, `"Pending requests"` |
 
----
 
-### 🔍 General Actions
-*System-wide utilities.*
-
-| Action | Example Commands |
-| :--- | :--- |
-| **Global Search** | `"Search for John"`, `"Find the billing record"`, `"Look for recent calls"` |
 
 > [!TIP]
 > **Pro Tip:** You can also use the **Command Palette (`Cmd + K` or `Ctrl + K`)** to instantly access many of these actions without typing them out in the chat!
@@ -131,7 +124,6 @@ I made sure to cover the main workflows our users actually care about:
 - **☎️ IVR Configuration**: A visual builder for call flows.
 - **🎯 Outbound Campaigns**: Creating and scheduling campaigns.
 - **📊 Reporting & Analytics**: Viewing dashboards and playing call recordings.
-- **🔍 Search**: Finding contacts or recordings quickly.
 
 <br/>
 
@@ -154,7 +146,7 @@ I made sure to cover the main workflows our users actually care about:
 
 ### ⚖️ 4. Trade-offs Made
 
-- **🤖 Fake AI (Regex) instead of OpenAI**: The assignment said a real LLM wasn't required. Instead of dealing with API latency and prompt engineering, I just wrote a `MockProvider` that uses regex to match keywords. This let me spend all my time on the actual UI and animations. It's set up with an interface though, so plugging in a real LLM later would be easy.
+- **🤖 Mockable AI vs Real LLMs**: The assignment said a real LLM wasn't strictly required. While I implemented real API integrations for both **Google Gemini** and **local Ollama** to parse intents, I also built a fallback `MockProvider` that uses regex. This guarantees the prototype is always perfectly functional for reviewers, even without an API key or local model running, while still proving the architecture supports real LLMs seamlessly.
 
 - **🚪 No Login Pages**: I skipped building an auth flow or a landing page. I figured you just want to see the core workspace and the UI interactions, so the app drops you straight into the chat view.
 
