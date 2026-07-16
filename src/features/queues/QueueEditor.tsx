@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -67,11 +67,15 @@ export default function QueueEditor({ artifact }: QueueEditorProps) {
     agents: preloadedAgents?.length ? preloadedAgents : (existingQueue?.agents || []),
   };
 
-  const { register, control, handleSubmit, watch, setValue, formState: { errors, isDirty } } = useForm<QueueFormValues>({
+  const { register, control, handleSubmit, watch, setValue, reset, formState: { errors, isDirty } } = useForm<QueueFormValues>({
     // @ts-ignore
     resolver: zodResolver(queueSchema),
     defaultValues,
   });
+
+  useEffect(() => {
+    reset(defaultValues);
+  }, [artifact.updatedAt]); // Only re-run when the artifact is updated in Redux
 
   const watchedAgents = watch('agents');
   const watchedStatus = watch('status');

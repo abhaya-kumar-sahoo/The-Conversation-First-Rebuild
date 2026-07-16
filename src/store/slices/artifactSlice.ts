@@ -26,19 +26,38 @@ const artifactSlice = createSlice({
         conversationId: string;
       }>
     ) {
-      const artifact: Artifact = {
-        id: nanoid(),
-        type: action.payload.type,
-        title: action.payload.title,
-        subtitle: action.payload.subtitle,
-        payload: action.payload.payload,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        isPinned: false,
-        conversationId: action.payload.conversationId,
-      };
-      state.artifacts.push(artifact);
-      state.activeArtifactId = artifact.id;
+      const existingIdx = state.artifacts.findIndex(a => a.type === action.payload.type);
+
+      if (existingIdx !== -1) {
+        // Update existing artifact instead of duplicating
+        state.artifacts[existingIdx] = {
+          ...state.artifacts[existingIdx],
+          title: action.payload.title,
+          subtitle: action.payload.subtitle,
+          payload: {
+            ...(typeof state.artifacts[existingIdx].payload === 'object' ? state.artifacts[existingIdx].payload : {}),
+            ...(typeof action.payload.payload === 'object' ? action.payload.payload : {})
+          },
+          updatedAt: new Date().toISOString(),
+          conversationId: action.payload.conversationId,
+        };
+        state.activeArtifactId = state.artifacts[existingIdx].id;
+      } else {
+        // Create new artifact if it doesn't exist
+        const artifact: Artifact = {
+          id: nanoid(),
+          type: action.payload.type,
+          title: action.payload.title,
+          subtitle: action.payload.subtitle,
+          payload: action.payload.payload,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          isPinned: false,
+          conversationId: action.payload.conversationId,
+        };
+        state.artifacts.push(artifact);
+        state.activeArtifactId = artifact.id;
+      }
     },
     updateArtifact(
       state,

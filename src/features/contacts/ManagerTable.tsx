@@ -29,7 +29,7 @@ export default function ManagerTable({ artifact: _artifact }: ManagerTableProps)
       header: 'Manager',
       cell: ({ row }) => (
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-600 to-indigo-600 flex items-center justify-center text-xs font-semibold text-white">
+          <div className="w-8 h-8 flex-shrink-0 rounded-full bg-gradient-to-br from-teal-600 to-indigo-600 flex items-center justify-center text-xs font-semibold text-white">
             {row.original.name.split(' ').map(n => n[0]).join('')}
           </div>
           <div>

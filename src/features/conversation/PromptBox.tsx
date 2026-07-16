@@ -79,6 +79,14 @@ export function PromptBox({ onSend, isStreaming }: PromptBoxProps) {
     return () => window.removeEventListener('keydown', handler);
   }, []);
 
+  // Refocus input after streaming finishes
+  useEffect(() => {
+    if (!isStreaming && textareaRef.current) {
+      // Small timeout ensures the disabled attribute is fully removed by React before focusing
+      setTimeout(() => textareaRef.current?.focus(), 10);
+    }
+  }, [isStreaming]);
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (showSlashMenu) {
       const filtered = SLASH_COMMANDS.filter(c => c.label.toLowerCase().includes('/' + slashFilter.toLowerCase()));

@@ -1,4 +1,4 @@
-import type { ParsedIntent, IntentType, ArtifactType } from '@/types';
+import type { ParsedIntent, IntentType, ArtifactType, Artifact } from '@/types';
 import { mockAgents, mockQueues } from '@/utils/mockData';
 import type { IAIProvider } from './AIProvider';
 
@@ -11,7 +11,7 @@ interface IntentPattern {
 const INTENT_PATTERNS: IntentPattern[] = [
   {
     type: 'create-queue',
-    patterns: [/\bcreate\b.*\bqueue\b/i, /\bnew\b.*\bqueue\b/i, /\badd\b.*\bqueue\b/i, /\bset up\b.*\bqueue\b/i],
+    patterns: [/\bcreate\b.*\bqueue\b/i, /\bnew\b.*\bqueue\b/i, /\badd\b.*new.*\bqueue\b/i, /\bset up\b.*\bqueue\b/i],
     artifactType: 'queue-editor',
   },
   {
@@ -31,17 +31,17 @@ const INTENT_PATTERNS: IntentPattern[] = [
   },
   {
     type: 'assign-agents',
-    patterns: [/\bassign\b.*\bagent/i, /\badd\b.*\bagent/i, /\bput\b.*\bagent/i, /\bassign\b.*\bqueue/i],
+    patterns: [/\bassign\b/i, /\badd\b/i, /\bput\b/i],
     artifactType: 'queue-editor',
   },
   {
     type: 'unassign-agents',
-    patterns: [/\bunassign\b.*\bagent/i, /\bremove\b.*\bagent/i],
+    patterns: [/\bunassign\b/i, /\bremove\b/i, /\bdelete\b.*from/i],
     artifactType: 'queue-editor',
   },
   {
     type: 'create-ivr',
-    patterns: [/\bcreate\b.*\bivr/i, /\bnew\b.*\bivr/i, /\bbuild\b.*\bivr/i, /\bivr\b.*\bflow/i, /\binteractive voice/i],
+    patterns: [/\open\b.*\bivr/i, /\bcreate\b.*\bivr/i, /\bnew\b.*\bivr/i, /\bbuild\b.*\bivr/i, /\bivr\b.*\bflow/i, /\binteractive voice/i],
     artifactType: 'ivr-builder',
   },
   {
@@ -164,7 +164,7 @@ function extractSearchTerm(input: string): string {
 }
 
 export class MockProvider implements IAIProvider {
-  async parseIntent(input: string): Promise<ParsedIntent> {
+  async parseIntent(input: string, context?: Artifact | null): Promise<ParsedIntent> {
     // Simulate network delay for mock provider
     await new Promise(resolve => setTimeout(resolve, 600));
 
@@ -185,15 +185,24 @@ export class MockProvider implements IAIProvider {
     }
 
     if (!matchedIntent) {
-      return this.buildResult('unknown', null, {}, trimmed);
+      // Contextual fallbacks
+      if (context?.type === 'queue-editor') {
+        if (/\b(change|update|edit|set|make)\b/i.test(trimmed)) {
+          matchedIntent = INTENT_PATTERNS.find(i => i.type === 'edit-queue') || null;
+        }
+      }
+
+      if (!matchedIntent) {
+        return this.buildResult('unknown', null, {}, trimmed);
+      }
     }
 
     const { type, artifactType } = matchedIntent;
-    const payload = this.buildPayload(type, trimmed);
+    const payload = this.buildPayload(type, trimmed, context);
     return this.buildResult(type, artifactType, payload, trimmed);
   }
 
-  private buildPayload(type: IntentType, input: string): Record<string, unknown> {
+  private buildPayload(type: IntentType, input: string, context?: Artifact | null): Record<string, unknown> {
     switch (type) {
       case 'create-queue':
         return {
@@ -206,14 +215,22 @@ export class MockProvider implements IAIProvider {
           isNew: true,
         };
       case 'edit-queue': {
-        const name = extractQueueName(input);
+        const extractedName = extractQueueName(input);
+        const name = extractedName || (context?.type === 'queue-editor' ? (context.payload?.name as string) : null);
         const queue = name
           ? mockQueues.find(q => q.name.toLowerCase().includes(name.toLowerCase()))
           : mockQueues[0];
+
+        // If context exists, prioritize strategy updates
+        const strategy = extractStrategy(input);
+        if (context?.type === 'queue-editor' && strategy !== 'Least Recent' && input.toLowerCase().includes('strategy')) {
+          return { queue: queue || mockQueues[0], strategy, isNew: false };
+        }
+
         return { queue: queue || mockQueues[0], isNew: false };
       }
       case 'delete-queue': {
-        const name = extractQueueName(input);
+        const name = extractQueueName(input) || (context?.type === 'queue-editor' ? (context.payload?.name as string) : null);
         const queue = name
           ? mockQueues.find(q => q.name.toLowerCase().includes(name.toLowerCase()))
           : mockQueues[0];
@@ -221,14 +238,29 @@ export class MockProvider implements IAIProvider {
       }
       case 'assign-agents':
       case 'unassign-agents': {
-        const queueName = extractQueueName(input);
+        const extractedQueueName = extractQueueName(input);
+        const queueName = extractedQueueName || (context?.type === 'queue-editor' ? (context.payload?.name as string) : null);
         const queue = queueName
           ? mockQueues.find(q => q.name.toLowerCase().includes(queueName.toLowerCase()))
           : mockQueues[0];
+
+        const extractedIds = extractAgentNames(input);
+        let finalAgentIds = extractedIds;
+
+        if (context?.type === 'queue-editor') {
+          // Preserve existing selections from context
+          const existingIds = (context.payload?.agentIds as string[]) || (context.payload?.queue as any)?.agents || [];
+          if (type === 'assign-agents') {
+            finalAgentIds = Array.from(new Set([...existingIds, ...extractedIds]));
+          } else {
+            finalAgentIds = existingIds.filter(id => !extractedIds.includes(id));
+          }
+        }
+
         return {
           queue: queue || mockQueues[0],
-          queueName: queue?.name || 'Sales',
-          agentIds: extractAgentNames(input),
+          queueName: queue?.name || queueName || 'Sales',
+          agentIds: finalAgentIds,
           isNew: false,
           action: type === 'assign-agents' ? 'assign' : 'unassign',
         };

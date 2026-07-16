@@ -214,6 +214,7 @@ export function Sidebar() {
                 <button
                   key={action.label}
                   onClick={() => handleQuickAction(action.prompt)}
+                  title={action.label}
                   className="w-9 h-9 rounded-lg flex items-center justify-center text-[#71717a] hover:text-white hover:bg-[#18181b] transition-colors"
                 >
                   <action.icon size={15} />

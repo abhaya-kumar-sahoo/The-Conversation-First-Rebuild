@@ -146,7 +146,9 @@ I made sure to cover the main workflows our users actually care about:
 
 - **🧩 Artifacts (Forms & Tables)**: Chat is actually pretty bad for complex configs. Nobody wants to type out a 15-step IVR tree in a text box. So, when you ask for something, the app pops open a real UI component (an "Artifact") on the right. This lets you use normal dropdowns and inputs for the heavy lifting.
 
-- **💻 Desktop feel**: I wanted it to feel like a pro tool, not a mobile chat app. I used a `100dvh` layout, tighter spacing, and added keyboard shortcuts like `Ctrl+K` for the command palette.
+- **🧠 Context-Aware AI**: The chat doesn't exist in a vacuum. It watches what tab (Artifact) you currently have open on the right side of the screen. If you're looking at a Queue Editor and you type `"Add Aman"` or `"Change strategy to round robin"`, it automatically knows you are referring to the active queue and updates it—without you needing to explicitly say the word "queue" again.
+
+- **💻 Desktop feel**: I wanted it to feel like a pro tool, not a mobile chat app. I used a `100dvh` layout, tighter spacing, and added keyboard shortcuts like `Cmd+K` for the command palette.
 
 <br/>
 
@@ -158,4 +160,4 @@ I made sure to cover the main workflows our users actually care about:
 
 - **💾 Redux instead of a Database**: There is no backend. Everything is held in Redux state. If you refresh, it wipes the chat. Again, I chose to focus strictly on frontend design rather than setting up backend plumbing.
 
-- **✅ Fake form submissions**: The forms (like the Queue Editor) look real and let you click around, but hitting "Save" just fires a toast notification instead of doing a database mutation. The UI paths are there, but the data isn't permanently saved.
+- **✅ Local State Management**: The forms (like the Queue Editor) look real and let you click around. If you change a setting and hit "Save", or if you ask the AI to change a setting for you (e.g., "Change ring time to 45 seconds"), the Redux store seamlessly updates the UI in place! There is no real database backend, but the state persists as long as the tab is open.

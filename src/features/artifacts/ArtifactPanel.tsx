@@ -48,7 +48,6 @@ export function ArtifactPanel() {
       handleNext();
     } else if (e.key === 'Delete' || e.key === 'Backspace') {
       // Only delete the tab if the user is focused directly on the panel container, 
-      // not if they are typing in an input or deleting a React Flow node.
       if (e.target === e.currentTarget) {
         dispatch(deleteArtifact(activeArtifact.id));
       }
@@ -56,7 +55,7 @@ export function ArtifactPanel() {
   };
 
   return (
-    <div 
+    <div
       className="h-full flex flex-col bg-[#0f0f12] focus:outline-none"
       tabIndex={0}
       onKeyDown={handleKeyDown}
@@ -129,17 +128,16 @@ export function ArtifactPanel() {
             >
               {artifact.isPinned && <span className="text-[8px] text-teal-400">●</span>}
               <span>{ARTIFACT_TYPE_LABELS[artifact.type]?.split(' ').slice(1).join(' ') || artifact.title}</span>
-              
+
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   dispatch(deleteArtifact(artifact.id));
                 }}
-                className={`ml-1 w-4 h-4 rounded-full flex items-center justify-center transition-opacity ${
-                  artifact.id === activeArtifact.id
-                    ? 'text-[#a1a1aa] hover:text-red-400 hover:bg-[#27272a] opacity-100'
-                    : 'text-[#71717a] hover:text-red-400 hover:bg-[#27272a] opacity-0 group-hover:opacity-100'
-                }`}
+                className={`ml-1 w-4 h-4 rounded-full flex items-center justify-center transition-opacity ${artifact.id === activeArtifact.id
+                  ? 'text-[#a1a1aa] hover:text-red-400 hover:bg-[#27272a] opacity-100'
+                  : 'text-[#71717a] hover:text-red-400 hover:bg-[#27272a] opacity-0 group-hover:opacity-100'
+                  }`}
                 title="Close tab"
               >
                 <X size={12} />

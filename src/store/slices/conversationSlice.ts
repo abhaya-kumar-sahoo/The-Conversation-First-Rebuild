@@ -57,7 +57,10 @@ const initialState: ConversationState = {
 // Simulates streaming by progressively revealing text
 export const sendMessage = createAsyncThunk(
   'conversation/sendMessage',
-  async (userInput: string, { dispatch }) => {
+  async (userInput: string, { dispatch, getState }) => {
+    const state = getState() as any; // Using any to avoid circular deps if RootState isn't easily imported
+    const activeArtifactId = state.artifacts?.activeArtifactId;
+    const activeArtifact = state.artifacts?.artifacts?.find((a: any) => a.id === activeArtifactId) || null;
     const conversationId = nanoid();
 
     // Add user message
@@ -72,7 +75,7 @@ export const sendMessage = createAsyncThunk(
 
     // Parse intent using the active provider
     const provider = getAIProvider();
-    const intent = await provider.parseIntent(userInput);
+    const intent = await provider.parseIntent(userInput, activeArtifact);
     // console.log({ intent });
 
     // Add streaming assistant message

@@ -62,7 +62,6 @@ export function AppLayout() {
         animate={{ width: sidebarCollapsed ? 56 : 260 }}
         transition={{ type: 'spring', stiffness: 400, damping: 40 }}
         className="flex-shrink-0 border-r border-[#27272a] overflow-hidden"
-        style={{ minWidth: sidebarCollapsed ? 56 : 260 }}
       >
         <Sidebar />
       </motion.div>
