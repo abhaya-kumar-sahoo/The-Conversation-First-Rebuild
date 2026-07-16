@@ -20,7 +20,6 @@ function getArtifactTitle(intentPayload: Record<string, unknown>, type: string):
     'campaign-builder': 'Campaign Builder',
     'approval-sheet': 'Approvals',
     'timeline': 'Timeline',
-    'search-results': 'Search Results',
     'empty-state': 'Empty',
   };
   return titles[type] || 'Workspace';

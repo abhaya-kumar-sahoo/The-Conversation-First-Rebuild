@@ -15,8 +15,9 @@ import ReactFlow, {
 } from 'reactflow';
 import { X } from 'lucide-react';
 import 'reactflow/dist/style.css';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import type { Artifact } from '@/types';
+import { IVRNodeConfig } from './IVRNodeConfig';
 
 // ============================================================
 // Custom Node Components
@@ -27,19 +28,13 @@ const nodeStyles = {
   colors: {
     'ivr-start': 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300',
     'ivr-menu': 'bg-teal-500/20 border-teal-500/40 text-teal-300',
-    'ivr-playback': 'bg-blue-500/20 border-blue-500/40 text-blue-300',
     'ivr-queue': 'bg-amber-500/20 border-amber-500/40 text-amber-300',
-    'ivr-transfer': 'bg-cyan-500/20 border-cyan-500/40 text-cyan-300',
-    'ivr-voicemail': 'bg-pink-500/20 border-pink-500/40 text-pink-300',
     'ivr-hangup': 'bg-red-500/20 border-red-500/40 text-red-300',
   } as Record<string, string>,
   icons: {
     'ivr-start': '▶',
     'ivr-menu': '☰',
-    'ivr-playback': '🔊',
     'ivr-queue': '⏱',
-    'ivr-transfer': '↗',
-    'ivr-voicemail': '📧',
     'ivr-hangup': '✕',
   } as Record<string, string>,
 };
@@ -113,50 +108,36 @@ function getInitialFlow(name: any) {
       data: { label: 'Start', type: 'ivr-start', message: 'Call received' },
     },
     {
-      id: '2',
-      type: 'ivrNode',
-      position: { x: 250, y: 130 },
-      data: { label: 'Welcome', type: 'ivr-playback', message: `Thank you for calling ${name}` },
-    },
-    {
       id: '3',
       type: 'ivrNode',
-      position: { x: 250, y: 240 },
+      position: { x: 250, y: 130 },
       data: { label: 'Main Menu', type: 'ivr-menu', message: 'Press 1 for Sales, 2 for Support, 3 for Billing' },
     },
     {
       id: '4',
       type: 'ivrNode',
-      position: { x: 60, y: 370 },
+      position: { x: 60, y: 240 },
       data: { label: isSales ? 'Sales Queue' : 'Support Queue', type: 'ivr-queue', message: 'Routing to agent...' },
     },
     {
       id: '5',
       type: 'ivrNode',
-      position: { x: 250, y: 370 },
+      position: { x: 250, y: 240 },
       data: { label: isBilling ? 'Billing Queue' : 'Tech Support', type: 'ivr-queue', message: 'Routing to specialist...' },
-    },
-    {
-      id: '6',
-      type: 'ivrNode',
-      position: { x: 440, y: 370 },
-      data: { label: 'Voicemail', type: 'ivr-voicemail', message: 'Leave a message after the tone' },
     },
     {
       id: '7',
       type: 'ivrNode',
-      position: { x: 250, y: 490 },
+      position: { x: 250, y: 370 },
       data: { label: 'Hang Up', type: 'ivr-hangup' },
     },
   ];
 
   const edges = [
-    { id: 'e1-2', source: '1', target: '2', animated: true, style: { stroke: '#0d9488' } },
-    { id: 'e2-3', source: '2', target: '3', animated: true, style: { stroke: '#0d9488' } },
-    { id: 'e3-4', source: '3', target: '4', label: 'Press 1', labelStyle: { fill: '#a1a1aa', fontSize: 10 } },
-    { id: 'e3-5', source: '3', target: '5', label: 'Press 2', labelStyle: { fill: '#a1a1aa', fontSize: 10 } },
-    { id: 'e3-6', source: '3', target: '6', label: 'No input', labelStyle: { fill: '#a1a1aa', fontSize: 10 } },
-    { id: 'e6-7', source: '6', target: '7', style: { stroke: '#ef4444' } },
+    { id: 'e1-3', source: '1', target: '3', animated: true, style: { stroke: '#0d9488' } },
+    { id: 'e3-4', source: '3', target: '4', animated: true, style: { stroke: '#0d9488' }, label: 'Press 1', labelStyle: { fill: '#a1a1aa', fontSize: 10 } },
+    { id: 'e3-5', source: '3', target: '5', animated: true, style: { stroke: '#0d9488' }, label: 'Press 2', labelStyle: { fill: '#a1a1aa', fontSize: 10 } },
+    { id: 'e5-7', source: '5', target: '7', animated: true, label: 'Ending Call', style: { stroke: '#ef4444' }, labelStyle: { fill: '#a1a1aa', fontSize: 10 } },
   ];
 
   return { nodes, edges };
@@ -168,10 +149,7 @@ function getInitialFlow(name: any) {
 
 const NODE_PALETTE = [
   { type: 'ivr-menu', label: 'Menu', icon: '☰' },
-  { type: 'ivr-playback', label: 'Playback', icon: '🔊' },
   { type: 'ivr-queue', label: 'Queue', icon: '⏱' },
-  { type: 'ivr-transfer', label: 'Transfer', icon: '↗' },
-  { type: 'ivr-voicemail', label: 'Voicemail', icon: '📧' },
   { type: 'ivr-hangup', label: 'Hang Up', icon: '✕' },
 ];
 
@@ -187,6 +165,18 @@ export default function IVRBuilder({ artifact }: IVRBuilderProps) {
   const [nodes, setNodes, onNodesChange] = useNodesState(initNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initEdges);
   const [nodeCount, setNodeCount] = useState(initNodes.length);
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
+
+  const selectedNode = nodes.find(n => n.id === selectedNodeId) || null;
+
+  const onNodeClick = useCallback((_: any, node: any) => {
+    if (node.data?.type === 'ivr-start' || node.data?.type === 'ivr-hangup') return;
+    setSelectedNodeId(node.id);
+  }, []);
+
+  const onPaneClick = useCallback(() => {
+    setSelectedNodeId(null);
+  }, []);
 
   const onConnect = useCallback(
     (connection: Connection) => setEdges(eds => addEdge({ ...connection, animated: true, style: { stroke: '#0d9488' } }, eds)),
@@ -207,8 +197,18 @@ export default function IVRBuilder({ artifact }: IVRBuilderProps) {
     setNodeCount(c => c + 1);
   };
 
+  const handleSaveNode = (nodeId: string, data: Record<string, any>) => {
+    //@ts-ignore
+    setNodes(nds => nds.map(n => n.id === nodeId ? { ...n, data } : n));
+  };
+
+  const handleDeleteNode = (nodeId: string) => {
+    setNodes(nds => nds.filter(n => n.id !== nodeId));
+    setSelectedNodeId(null);
+  };
+
   return (
-    <div className="flex h-full">
+    <div className="flex h-full relative overflow-hidden">
       {/* Node Palette */}
       <div className="w-36 flex-shrink-0 border-r border-[#27272a] bg-[#0f0f12] p-3 flex flex-col gap-2">
         <p className="text-[10px] font-semibold text-[#52525b] uppercase tracking-wider mb-1">Add Node</p>
@@ -237,6 +237,8 @@ export default function IVRBuilder({ artifact }: IVRBuilderProps) {
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
+          onNodeClick={onNodeClick}
+          onPaneClick={onPaneClick}
           nodeTypes={nodeTypes}
           fitView
           proOptions={{ hideAttribution: true }}
@@ -260,6 +262,18 @@ export default function IVRBuilder({ artifact }: IVRBuilderProps) {
           />
         </ReactFlow>
       </div>
+
+      {/* Slide-in Configuration Panel */}
+      <AnimatePresence>
+        {selectedNode && (
+          <IVRNodeConfig
+            node={selectedNode}
+            onClose={() => setSelectedNodeId(null)}
+            onSave={handleSaveNode}
+            onDelete={handleDeleteNode}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

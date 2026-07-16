@@ -24,13 +24,12 @@ You must return ONLY a raw JSON object with this exact structure, no markdown fo
 ArtifactTypes you can use:
 'queue-editor', 'queue-list', 'ivr-builder', 'contact-table', 'manager-table', 
 'dashboard', 'report', 'analytics', 'recordings', 
-'confirmation-dialog', 'campaign-builder', 'approval-sheet', 'timeline', 
-'search-results', 'empty-state'
+'confirmation-dialog', 'campaign-builder', 'approval-sheet', 'timeline', 'empty-state'
 `;
 
 export class OllamaProvider implements IAIProvider {
   private baseUrl = 'http://localhost:11434/api/generate';
-  private model = 'llama3.1:latest'; // or mistral, phi3, etc.
+  private model = 'llama3.1:latest';
 
   async parseIntent(input: string): Promise<ParsedIntent> {
     try {
@@ -43,7 +42,7 @@ export class OllamaProvider implements IAIProvider {
           model: this.model,
           prompt: `${SYSTEM_PROMPT}\n\nUser Input: "${input}"\n\nJSON:`,
           stream: false,
-          format: 'json', // Forces Ollama into JSON mode
+          format: 'json',
         }),
       });
 
@@ -64,8 +63,7 @@ export class OllamaProvider implements IAIProvider {
         'create-ivr': 'ivr-builder', 'edit-ivr': 'ivr-builder', 'create-campaign': 'campaign-builder',
         'show-approvals': 'approval-sheet', 'show-timeline': 'timeline', 'show-contacts': 'contact-table',
         'show-managers': 'manager-table', 'show-dashboard': 'dashboard', 'show-recordings': 'recordings',
-        'generate-report': 'report', 'show-analytics': 'analytics',
-        'search': 'search-results'
+        'generate-report': 'report', 'show-analytics': 'analytics'
       };
 
       let finalArtifactType = parsed.artifactType;
@@ -81,7 +79,7 @@ export class OllamaProvider implements IAIProvider {
         confidence: 0.9,
         payload: parsed.payload || {},
         artifactType: finalArtifactType as ArtifactType,
-        responseText: parsed.responseText || "I couldn't process that properly.",
+        responseText: parsed.responseText || (parsed as any).message || (parsed as any).response || "I've processed your request and opened the relevant view.",
         suggestions: parsed.suggestions || ['Show dashboard'],
       };
     } catch (error) {

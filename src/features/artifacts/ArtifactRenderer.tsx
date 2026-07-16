@@ -13,8 +13,6 @@ const RecordingsArtifact = lazy(() => import('@/features/recordings/RecordingsAr
 const CampaignBuilder = lazy(() => import('@/features/campaigns/CampaignBuilder'));
 const ApprovalSheet = lazy(() => import('@/features/approvals/ApprovalSheet'));
 const TimelineArtifact = lazy(() => import('@/features/timeline/TimelineArtifact'));
-const SearchResults = lazy(() => import('@/features/search/SearchResults'));
-
 function SkeletonLoader() {
   return (
     <div className="p-5 space-y-3">
@@ -58,8 +56,6 @@ export function ArtifactRenderer({ artifact }: ArtifactRendererProps) {
             return <ApprovalSheet />
           case 'timeline':
             return <TimelineArtifact />
-          case 'search-results':
-            return <SearchResults artifact={artifact} />
           default:
             return (
               <div className="p-8 text-center text-[#52525b]">

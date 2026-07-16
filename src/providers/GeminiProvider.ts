@@ -24,14 +24,12 @@ You must return ONLY a raw JSON object with this exact structure, no markdown fo
 ArtifactTypes you can use:
 'queue-editor', 'queue-list', 'ivr-builder', 'contact-table', 'manager-table', 
 'dashboard', 'report', 'analytics', 'recordings', 
-'confirmation-dialog', 'campaign-builder', 'approval-sheet', 'timeline', 
-'search-results', 'empty-state'
+'confirmation-dialog', 'campaign-builder', 'approval-sheet', 'timeline', 'empty-state'
 `;
 
 export class GeminiProvider implements IAIProvider {
-  // NOTE: You must set VITE_GEMINI_API_KEY in your .env.local file
   private apiKey = import.meta.env.VITE_GEMINI_API_KEY || '';
-  private baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
+  private baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent';
 
   async parseIntent(input: string): Promise<ParsedIntent> {
     if (!this.apiKey) {

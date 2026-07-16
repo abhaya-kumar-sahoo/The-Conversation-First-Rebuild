@@ -95,11 +95,6 @@ const INTENT_PATTERNS: IntentPattern[] = [
     artifactType: 'analytics',
   },
   {
-    type: 'search',
-    patterns: [/\bsearch\b/i, /\bfind\b/i, /\blook.*for\b/i, /\bwhere\b.*\bis\b/i],
-    artifactType: 'search-results',
-  },
-  {
     type: 'help',
     patterns: [/\bhelp\b/i, /\bwhat can you/i, /\bwhat do you/i, /\bhow (do|can|to)\b/i, /\bcommands\b/i],
     artifactType: null,
@@ -270,9 +265,6 @@ export class MockProvider implements IAIProvider {
         return { name: extractNameGenerics(input, 'Main Menu'), isNew: type === 'create-ivr' };
       case 'create-campaign':
         return { name: extractNameGenerics(input, 'Summer Outreach'), isNew: true };
-
-      case 'search':
-        return { query: extractSearchTerm(input) };
       default:
         return {};
     }

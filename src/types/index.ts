@@ -149,7 +149,6 @@ export type ArtifactType =
   | 'campaign-builder'
   | 'approval-sheet'
   | 'timeline'
-  | 'search-results'
   | 'empty-state';
 
 export interface Artifact {
