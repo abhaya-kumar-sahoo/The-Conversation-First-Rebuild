@@ -154,4 +154,3 @@ I made sure to cover the main workflows our users actually care about:
 
 - **💾 Redux instead of a Database**: There is no backend. Everything is held in Redux state. If you refresh, it wipes the chat. Again, I chose to focus strictly on frontend design rather than setting up backend plumbing.
 
-- **✅ Local State Management**: The forms (like the Queue Editor) look real and let you click around. If you change a setting and hit "Save", or if you ask the AI to change a setting for you (e.g., "Change ring time to 45 seconds"), the Redux store seamlessly updates the UI in place! There is no real database backend, but the state persists as long as the tab is open.
